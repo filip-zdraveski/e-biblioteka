@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 
 namespace E_biblioteka.Models
@@ -9,9 +10,8 @@ namespace E_biblioteka.Models
     public class Author
     {
         public long AuthorId { get; set; }
-        public String Name { get; set; }
-        public String DateOfBirth { get; set; }
-        
-        public String DateOfDeath { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public string Description { get; set; }
     }
 }

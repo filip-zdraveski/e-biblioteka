@@ -8,12 +8,12 @@ namespace E_biblioteka.Models
     public class Member
     {
         public long MemberId { get; set; }
-        public String Name { get; set; }
-        public String Email { get; set; }
-        public String DateOfBirth { get; set; }
-        public String SocialSecurityNumber { get; set; }
-        public String SubscriptionStartDate { get; set; }
-        public String SubscriptionEndDate { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string DateOfBirth { get; set; }
+        public string SocialSecurityNumber { get; set; }
+        public string SubscriptionStartDate { get; set; }
+        public string SubscriptionEndDate { get; set; }
 
     }
 }
