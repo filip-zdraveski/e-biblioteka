@@ -9,8 +9,10 @@ namespace E_biblioteka.Models
 {
     public class Author
     {
+        [Display(Name = "Author Id")]
         public long AuthorId { get; set; }
         public string Name { get; set; }
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         public string Description { get; set; }
     }
