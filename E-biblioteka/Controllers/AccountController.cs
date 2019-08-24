@@ -52,6 +52,26 @@ namespace E_biblioteka.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddUserToRole()
+        {
+            var model = new AddToRoleModel();
+            model.Roles.Add("Administrator");
+            model.Roles.Add("Employee");
+            model.Roles.Add("Moderator");
+            model.Roles.Add("Member");
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddUserToRole(AddToRoleModel model)
+        {
+            var user = UserManager.FindByEmail(model.Email);
+            UserManager.AddToRole(user.Id, model.SelectedRole);
+            return RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
