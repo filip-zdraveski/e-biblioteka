@@ -10,9 +10,13 @@ namespace E_biblioteka.Models
     {
         [Display(Name = "Book Id")]
         public long BookId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public Author Author { get; set; }
+        [Required]
         public string Genre { get; set; }
+        [Required]
         public int Year { get; set; }
         public double Rating { get; set; }
         public string Description { get; set; }

@@ -11,6 +11,7 @@ namespace E_biblioteka.Models
     {
         [Display(Name = "Author Id")]
         public long AuthorId { get; set; }
+        [Required]
         public string Name { get; set; }
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }

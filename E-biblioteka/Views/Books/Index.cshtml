@@ -32,6 +32,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
         <th></th>
     </tr>
 
@@ -54,6 +57,9 @@
         </td>
         <td>
             <img src="@item.ImageUrl" style="max-width: 200px; max-height: 200px;" alt="Book image"/>
+        </td>
+        <td>
+            FIX THIS !
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |

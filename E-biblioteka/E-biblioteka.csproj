@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201908081314095_Initial.Designer.cs">
       <DependentUpon>201908081314095_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908241857091_Required fields annotated.cs" />
+    <Compile Include="Migrations\201908241857091_Required fields annotated.Designer.cs">
+      <DependentUpon>201908241857091_Required fields annotated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
@@ -283,6 +287,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908081314095_Initial.resx">
       <DependentUpon>201908081314095_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908241857091_Required fields annotated.resx">
+      <DependentUpon>201908241857091_Required fields annotated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
