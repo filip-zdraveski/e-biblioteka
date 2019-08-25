@@ -1,0 +1,45 @@
+﻿@model IEnumerable<E_biblioteka.Models.Request>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorsName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorsName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Accept", "Create", "Books") 
+                @Html.ActionLink("Decline", "Delete", new { id = item.RequestId })
+            }
+            @Html.ActionLink("Edit", "Edit", new { id = item.RequestId })
+        </td>
+    </tr>
+}
+
+</table>
