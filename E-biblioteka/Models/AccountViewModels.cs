@@ -65,6 +65,22 @@ namespace E_biblioteka.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Name and Surname")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Date of Birth")]
+        public string DateOfBirth { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Subscription Duration in Months")]
+        [Range(1, 60, ErrorMessage = "Please enter a number between 1 and 60")]
+        public int SubscriptionDurationInMonths { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

@@ -11,6 +11,8 @@ namespace E_biblioteka.Models
         [Display(Name = "Member Id")]
         public long MemberId { get; set; }
         [Required]
+        [Display(Name = "Name and Surname")]
+        [StringLength(64, ErrorMessage = "Your name and surname must not exceed 64 characters")]
         public string Name { get; set; }
         [Required]
         [EmailAddress]
@@ -18,9 +20,8 @@ namespace E_biblioteka.Models
         [Required]
         [Display(Name = "Date of Birth")]
         public string DateOfBirth { get; set; }
-        [Required]
-        [Display(Name = "Social Security Number")]
-        public string SocialSecurityNumber { get; set; }
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
         [Required]
         [Display(Name = "Subscription Start Date")]
         public string SubscriptionStartDate { get; set; }
