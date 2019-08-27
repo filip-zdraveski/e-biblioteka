@@ -23,6 +23,7 @@ namespace E_biblioteka.Models
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Request> Requests { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

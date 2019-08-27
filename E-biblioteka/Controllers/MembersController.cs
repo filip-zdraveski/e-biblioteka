@@ -10,6 +10,7 @@ using E_biblioteka.Models;
 
 namespace E_biblioteka.Controllers
 {
+    [Authorize(Roles = "Administrator,Employee")]
     public class MembersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -46,7 +47,7 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MemberId,Name,Email,DateOfBirth,SocialSecurityNumber,SubscriptionStartDate,SubscriptionEndDate")] Member member)
+        public ActionResult Create([Bind(Include = "MemberId,Name,Email,DateOfBirth,PhoneNumber,SubscriptionStartDate,SubscriptionEndDate")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MemberId,Name,Email,DateOfBirth,SocialSecurityNumber,SubscriptionStartDate,SubscriptionEndDate")] Member member)
+        public ActionResult Edit([Bind(Include = "MemberId,Name,Email,DateOfBirth,PhoneNumber,SubscriptionStartDate,SubscriptionEndDate")] Member member)
         {
             if (ModelState.IsValid)
             {
