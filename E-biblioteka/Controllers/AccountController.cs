@@ -56,10 +56,7 @@ namespace E_biblioteka.Controllers
         public ActionResult AddUserToRole()
         {
             var model = new AddToRoleModel();
-            model.Roles.Add("Administrator");
-            model.Roles.Add("Employee");
-            model.Roles.Add("Moderator");
-            model.Roles.Add("Member");
+            model.Roles = Roles.ListRoles();
             return View(model);
         }
 
@@ -95,7 +92,7 @@ namespace E_biblioteka.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -171,10 +168,58 @@ namespace E_biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var usernameExists = await UserManager.FindByNameAsync(model.UserName);
+                var emailExists = await UserManager.FindByEmailAsync(model.Email);
+
+                if(usernameExists != null && emailExists != null)
+                {
+                    ViewBag.UserNameExists = $"User with '{ model.UserName }' already exists! " +
+                        "Please choose another username!";
+                    ViewBag.EmailExists = $"User with email '{ model.Email }' already exists! " +
+                        "Please choose another email!";
+                    return View(model);
+                }
+
+                if(usernameExists != null)
+                {
+                    ViewBag.UserNameExists = $"User with '{ model.UserName }' already exists! " +
+                        "Please choose another username!";
+                    return View(model);
+                }
+
+                if(emailExists != null)
+                {
+                    ViewBag.EmailExists = $"User with email '{ model.Email }' already exists! " +
+                        "Please choose another email!";
+                    return View(model);
+                }
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.DateOfBirth = model.DateOfBirth;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Address = model.Address;
+                user.City = model.City;
+                user.IsMember = model.IsMember;
+                if (user.IsMember.Value)
+                {
+                    user.SubscriptionStartDate = DateTime.Now;
+                    if (model.SubscriptionDurationInMonths == 0)
+                    {
+                        user.SubscriptionDurationInMonths = 12;
+                    }
+                    else
+                    {
+                        user.SubscriptionDurationInMonths = model.SubscriptionDurationInMonths;
+                    }
+                    user.SubscriptionEndDate = user.SubscriptionStartDate.Value.AddMonths(user.SubscriptionDurationInMonths.Value);
+                }
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (user.IsMember.Value)
+                        await UserManager.AddToRoleAsync(user.Id, Roles.Member);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -183,7 +228,7 @@ namespace E_biblioteka.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Books");
                 }
                 AddErrors(result);
             }

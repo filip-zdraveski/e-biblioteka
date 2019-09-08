@@ -192,6 +192,14 @@
     <Compile Include="Migrations\201908271039398_Initial2.Designer.cs">
       <DependentUpon>201908271039398_Initial2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909081600052_RegisterUserData.cs" />
+    <Compile Include="Migrations\201909081600052_RegisterUserData.Designer.cs">
+      <DependentUpon>201909081600052_RegisterUserData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909082154181_RegisterUserData1.cs" />
+    <Compile Include="Migrations\201909082154181_RegisterUserData1.Designer.cs">
+      <DependentUpon>201909082154181_RegisterUserData1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
@@ -202,6 +210,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Request.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -311,6 +320,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908271039398_Initial2.resx">
       <DependentUpon>201908271039398_Initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909081600052_RegisterUserData.resx">
+      <DependentUpon>201909081600052_RegisterUserData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909082154181_RegisterUserData1.resx">
+      <DependentUpon>201909082154181_RegisterUserData1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

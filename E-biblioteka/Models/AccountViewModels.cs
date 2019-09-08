@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace E_biblioteka.Models
@@ -49,9 +50,8 @@ namespace E_biblioteka.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,17 +65,33 @@ namespace E_biblioteka.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Name and Surname")]
+        [StringLength(64)]
         public string Name { get; set; }
 
         [Required]
+        [StringLength(64)]
+        public string Surname { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        [Display(Name = "Username")]
+        public string UserName{ get; set; }
+
+        [Required]
         [Display(Name = "Date of Birth")]
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public string City { get; set; }
+
+        public bool IsMember { get; set; }
+
         [Display(Name = "Subscription Duration in Months")]
         [Range(1, 60, ErrorMessage = "Please enter a number between 1 and 60")]
         public int SubscriptionDurationInMonths { get; set; }
