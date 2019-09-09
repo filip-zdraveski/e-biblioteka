@@ -41,6 +41,15 @@ namespace E_biblioteka.Controllers
             return View();
         }
 
+        public ActionResult CreateFromRequest(Request request)
+        {
+            Book newBook = new Book
+            {
+                Name = request.Title
+            };
+            return View(newBook);
+        }
+
         // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

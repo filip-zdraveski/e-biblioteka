@@ -34,7 +34,7 @@
         <td>
             @if (User.IsInRole("Administrator"))
             {
-                @Html.ActionLink("Accept", "Create", "Books")
+                @Html.ActionLink("Accept", "CreateFromRequest", "Books", new { Title = item.Title, AuthorsName = item.AuthorsName, RequestId = item.RequestId }, null)
                 @:&nbsp;
                 @Html.ActionLink("Decline", "Delete", new { id = item.RequestId })
                 @:&nbsp;
