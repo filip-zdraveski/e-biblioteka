@@ -53,9 +53,16 @@ namespace E_biblioteka.Controllers
         {
             Book newBook = new Book
             {
-                Name = request.Title
+                Name = request.Title,
             };
-            return View(newBook);
+            var model = new AddAuthorToBook()
+            {
+                Book = newBook,
+                Authors = db.Authors.ToList(),
+                SelectedAuthorId = -1,
+                SelectedBookId = -1
+            };
+            return View(model);
         }
 
         // POST: Books/Create
