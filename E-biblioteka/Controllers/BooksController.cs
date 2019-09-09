@@ -17,7 +17,7 @@ namespace E_biblioteka.Controllers
         // GET: Books
         public ActionResult Index()
         {
-            return View(db.Books.ToList());
+            return View(db.Books.Include(b => b.Author).ToList());
         }
 
         // GET: Books/Details/5
@@ -38,7 +38,15 @@ namespace E_biblioteka.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new AddAuthorToBook()
+            {
+                Book = new Book(),
+                Authors = db.Authors.ToList(),
+                SelectedAuthorId = -1,
+                SelectedBookId = -1
+            };
+
+            return View(model);
         }
 
         public ActionResult CreateFromRequest(Request request)
@@ -55,16 +63,41 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookId,Name,Genre,Year,Rating,Description,ImageUrl,Author")] Book book)
+        public ActionResult Create(AddAuthorToBook model)
         {
             if (ModelState.IsValid)
             {
+                Book book = new Book()
+                {
+                    Name = model.Book.Name,
+                    Genre = model.Book.Genre,
+                    Year = model.Book.Year,
+                    Rating = model.Book.Rating,
+                    Description = model.Book.Description,
+                    ImageUrl = model.Book.ImageUrl
+                };
+
+                Author author = db.Authors.Find(model.SelectedAuthorId);
+                if (author == null) // mozhe nema da ni treba ova voopshto
+                {
+                    model = new AddAuthorToBook()
+                    {
+                        Book = new Book(),
+                        Authors = db.Authors.ToList(),
+                        SelectedAuthorId = -1,
+                        SelectedBookId = -1
+                    };
+
+                    return View(model);
+                }
+                book.Author = author; 
+
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(book);
+            return View(model);
         }
 
         // GET: Books/Edit/5

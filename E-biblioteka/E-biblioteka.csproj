@@ -200,8 +200,13 @@
     <Compile Include="Migrations\201909082154181_RegisterUserData1.Designer.cs">
       <DependentUpon>201909082154181_RegisterUserData1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909091850389_AddAuthorToBook.cs" />
+    <Compile Include="Migrations\201909091850389_AddAuthorToBook.Designer.cs">
+      <DependentUpon>201909091850389_AddAuthorToBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddAuthorToBook.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
@@ -327,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909082154181_RegisterUserData1.resx">
       <DependentUpon>201909082154181_RegisterUserData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909091850389_AddAuthorToBook.resx">
+      <DependentUpon>201909091850389_AddAuthorToBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

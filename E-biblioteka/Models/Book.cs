@@ -13,8 +13,6 @@ namespace E_biblioteka.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public Author Author { get; set; }
-        [Required]
         public string Genre { get; set; }
         [Required]
         public int Year { get; set; }
@@ -22,5 +20,6 @@ namespace E_biblioteka.Models
         public string Description { get; set; }
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
+        public Author Author { get; set; }
     }
 }

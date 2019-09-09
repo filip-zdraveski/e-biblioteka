@@ -16,5 +16,6 @@ namespace E_biblioteka.Models
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         public string Description { get; set; }
+        public virtual List<Book> Books { get; set; }
     }
 }
