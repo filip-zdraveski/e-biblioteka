@@ -26,23 +26,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            <img src="@item.ImageUrl" style="max-width: 200px; max-height: 200px;" alt="Author image" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AuthorId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AuthorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AuthorId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })
+            </td>
+            <td>
+                <img src="@item.ImageUrl" style="max-width: 200px; max-height: 200px;" alt="'@item.Name'" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AuthorId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
+            </td>
+        </tr>
+    }
 
 </table>
+

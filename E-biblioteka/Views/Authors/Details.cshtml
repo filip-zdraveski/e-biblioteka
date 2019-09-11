@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
+            <img id="modalImage" src="@Model.ImageUrl" style="max-width: 200px; max-height: 200px;" alt="@Model.Name" />
         </dd>
 
         <dt>
@@ -40,3 +40,24 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption"></div>
+</div>
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="@Href("~/Scripts/ModalImage.js")"></script>
+}

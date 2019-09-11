@@ -21,5 +21,8 @@ namespace E_biblioteka.Models
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         public Author Author { get; set; }
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int InStock { get; set; }
     }
 }
