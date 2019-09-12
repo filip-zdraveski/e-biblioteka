@@ -10,6 +10,9 @@
     .checked{
         color: orange;
     }
+    .card{
+        margin-bottom: 25px;
+    }
 </style>
  
 <p>
@@ -25,18 +28,20 @@
     {
 
                 <div class="card bg-light col-lg-4 mb-2">
-                    <img class="card-img-top" src="@item.ImageUrl" style="max-width: 200px; max-height: 200px;" />
+                    <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px;" />
                     <div class="card-body">
 
                         <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
                          
                         <p>
-                         @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
+                         @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })</p>
+                        <p>
                             <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
                             <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
                         </p>
                         
-                        @for (var i=0; i <= item.Rating; i++)
+                        
+                        @for (var i=0; i < item.Rating; i++)
                         {
                          <span class="fa fa-star checked"></span>
                         }
