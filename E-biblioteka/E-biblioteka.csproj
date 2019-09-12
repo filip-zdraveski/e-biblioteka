@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201909111642100_BooksInStock.Designer.cs">
       <DependentUpon>201909111642100_BooksInStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909121803299_NewBooks.cs" />
+    <Compile Include="Migrations\201909121803299_NewBooks.Designer.cs">
+      <DependentUpon>201909121803299_NewBooks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
@@ -344,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909111642100_BooksInStock.resx">
       <DependentUpon>201909111642100_BooksInStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121803299_NewBooks.resx">
+      <DependentUpon>201909121803299_NewBooks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
