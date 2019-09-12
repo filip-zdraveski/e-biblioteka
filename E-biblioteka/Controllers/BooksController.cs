@@ -108,18 +108,27 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Books/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Book book = db.Books.Find(id);
             if (book == null)
-            {
                 return HttpNotFound();
-            }
-            return View(book);
+
+            var model = new AddAuthorToBook()
+            {
+                Book = new Book(),
+                Authors = db.Authors.ToList(),
+                SelectedAuthorId = book.Author.AuthorId,
+                SelectedBookId = -1
+            };
+
+            model.Book = book;
+            return View(model);
         }
 
         // POST: Books/Edit/5
@@ -127,15 +136,40 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookId,Name,Genre,Year,Rating,Description,ImageUrl,Author")] Book book)
+        public ActionResult Edit(AddAuthorToBook model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(book).State = EntityState.Modified;
+                // ne raboti, zoshto ???
+                Book book = db.Books.Find(model.Book.BookId);
+                if (book == null)
+                    return HttpNotFound();
+
+                book.Name = model.Book.Name;
+                book.Description = model.Book.Description;
+                book.Genre = model.Book.Genre;
+                book.ImageUrl = model.Book.ImageUrl;
+                book.Rating = model.Book.Rating;
+                book.Year = model.Book.Year;
+
+                Author author = db.Authors.Find(model.SelectedAuthorId);
+                if (author == null)
+                {
+                    model = new AddAuthorToBook()
+                    {
+                        Book = new Book(),
+                        Authors = db.Authors.ToList(),
+                        SelectedAuthorId = -1,
+                        SelectedBookId = -1
+                    };
+                    return View(model);
+                }
+                book.Author = author;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(book);
+            return View(model);
         }
 
         // GET: Books/Delete/5
