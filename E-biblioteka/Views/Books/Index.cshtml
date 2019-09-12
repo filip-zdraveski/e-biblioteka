@@ -2,19 +2,20 @@
 
 @{
     ViewBag.Title = "Index";
-   
+
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h2>Index</h2>
 <style>
-    .checked{
+    .checked {
         color: orange;
     }
-    .card{
+
+    .card {
         margin-bottom: 25px;
     }
 </style>
- 
+
 <p>
     @if (User.IsInRole("Administrator"))
     {
@@ -22,45 +23,35 @@
     }
 </p>
 
-        <div class="container">
+<div class="container">
 
     @foreach (var item in Model)
     {
+        <div class="card bg-light col-lg-4 mb-2">
+            <img class="card-img-top" src="@item.ImageUrl" style="width: 150px; height: 200px;" />
+            <div class="card-body">
+                <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
+                <p>
+                    @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
+                </p>
+                <p>
+                    <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
+                    <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
+                </p>
 
-                <div class="card bg-light col-lg-4 mb-2">
-                    <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px;" />
-                    <div class="card-body">
+                @for (var i = 0; i < item.Rating; i++)
+                {
+                    <span class="fa fa-star checked"></span>
+                }
 
-                        <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
-                         
-                        <p>
-                         @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })</p>
-                        <p>
-                            <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
-                            <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
-                        </p>
-                        
-                        
-                        @for (var i=0; i < item.Rating; i++)
-                        {
-                         <span class="fa fa-star checked"></span>
-                        }
-                        @for (var i=(item.Rating+1); i<=5; i++)
-                        {
-                         <span class="fa fa-star"></span>
-                        }
-
-
-
-
-
-
-                     </div>
-                </div>
-        
-    
-     }
+                @for (var i = (item.Rating + 1); i <= 5; i++)
+                {
+                    <span class="fa fa-star"></span>
+                }
             </div>
+        </div>
+    }
+</div>
 
 <div>
     @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
