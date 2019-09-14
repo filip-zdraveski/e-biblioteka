@@ -1,11 +1,12 @@
-﻿@model IEnumerable<E_biblioteka.Models.Book>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<E_biblioteka.Models.Book>
 
 @{
     ViewBag.Title = "Index";
 
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<h2>Index</h2>
 <style>
     .checked {
         color: orange;
@@ -24,6 +25,31 @@
 </p>
 
 <div class="container">
+    <div class="row">
+        <h2>BOOKLIST</h2>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-xs-12 col-sm-4 col-lg-4 navbar-right">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="search" style="cursor: pointer;">Search and browse books:</label>
+                    <input id="search" type="search" placeholder="Enter the book title" class="form-control" name="query" />
+                </div>
+                <br />
+                <br />
+                <div id="order" class="form-group">
+                    <label for="order-list" style="cursor: pointer">Order by:</label>
+                    <select id="order-list" class="form-control">
+                        <option value="title-ascending">Title (A-Z)</option>
+                        <option value="title-descending">Title (Z-A)</option>
+                        <option value="rating-descending">Top Rated</option>
+                        <option value="year-ascending">Publish Date (newest)</option>
+                        <option value="year-ascending">Publish Date (oldest)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @foreach (var item in Model)
     {
@@ -51,6 +77,12 @@
             </div>
         </div>
     }
+
+    <div class="row">
+        <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
+        </div>
+    </div>
 </div>
 
 <div>
@@ -60,3 +92,23 @@
         @Html.ActionLink("Send Request", "Create", "Requests")
     }
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("select option").each(function () {
+                var value = $(this).attr("value");
+                if (document.location.search.includes(value)) {
+                    $(this).attr("selected", true);
+                    return;
+                }
+            });
+
+            $("select").on("change",
+                function () {
+                    document.location = "?orderBy=" + this.value;
+                });
+        });
+    </script>
+}
