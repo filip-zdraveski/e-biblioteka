@@ -25,14 +25,17 @@
 </p>
 
 <div class="container">
-    <div class="row">
+    <div class="row text-center">
         <h2>BOOKLIST</h2>
+    </div>
+    <div class="clearfix">
+        <br />
     </div>
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-xs-12 col-sm-4 col-lg-4 navbar-right">
             <div class="form-inline">
                 <div class="form-group">
-                    <label for="search" style="cursor: pointer;">Search and browse books:</label>
+                    <label for="search" style="cursor: pointer;">Search books:</label>
                     <input id="search" type="search" placeholder="Enter the book title" class="form-control" name="query" />
                 </div>
                 <br />
@@ -50,7 +53,9 @@
             </div>
         </div>
     </div>
-
+    <div class="clear-fix">
+        <br />
+    </div>
     @foreach (var item in Model)
     {
         <div class="card bg-light col-lg-4 mb-2">
