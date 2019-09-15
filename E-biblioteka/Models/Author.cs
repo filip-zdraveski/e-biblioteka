@@ -10,8 +10,10 @@ namespace E_biblioteka.Models
     public class Author
     {
         [Display(Name = "Author Id")]
+        [Key]
         public long AuthorId { get; set; }
         [Required]
+        [StringLength(64, ErrorMessage = "Author's name must not exceed 64 characters!")]
         public string Name { get; set; }
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }

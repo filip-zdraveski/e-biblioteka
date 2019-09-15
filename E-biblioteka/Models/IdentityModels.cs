@@ -12,11 +12,11 @@ namespace E_biblioteka.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        [StringLength(64)]
+        [StringLength(64, ErrorMessage = "Name must not exceed 64 characters!")]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(64)]
+        [StringLength(64, ErrorMessage = "Surname must not exceed 64 characters!")]
         public string Surname { get; set; }
 
         [Required]

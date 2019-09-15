@@ -17,13 +17,6 @@
     }
 </style>
 
-<p>
-    @if (User.IsInRole("Administrator"))
-    {
-        @Html.ActionLink("Create New", "Create")
-    }
-</p>
-
 <div class="container">
     <div class="row text-center">
         <h2>BOOKLIST</h2>
@@ -89,7 +82,14 @@
         </div>
     </div>
 </div>
-
+<div>
+    <p>
+        @if (User.IsInRole("Administrator"))
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    </p>
+</div>
 <div>
     @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
     {

@@ -65,15 +65,15 @@ namespace E_biblioteka.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(64)]
+        [StringLength(64, ErrorMessage = "Your name must not exceed 64 characters!")]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(64)]
+        [StringLength(64, ErrorMessage = "Your surname must not exceed 64 characters!")]
         public string Surname { get; set; }
 
         [Required]
-        [StringLength(64)]
+        [StringLength(64, ErrorMessage = "Your username must not exceed 64 characters!")]
         [Display(Name = "Username")]
         public string UserName{ get; set; }
 

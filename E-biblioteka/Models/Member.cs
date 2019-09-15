@@ -9,11 +9,14 @@ namespace E_biblioteka.Models
     public class Member
     {
         [Display(Name = "Member Id")]
+        [Key]
         public long MemberId { get; set; }
         [Required]
-        [Display(Name = "Name and Surname")]
-        [StringLength(64, ErrorMessage = "Your name and surname must not exceed 64 characters")]
+        [StringLength(64, ErrorMessage = "Your name must not exceed 64 characters")]
         public string Name { get; set; }
+        [Required]
+        [StringLength(64, ErrorMessage = "Your surname must not exceed 64 characters")]
+        public string Surname { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

@@ -66,6 +66,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Book.InStock, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Book.InStock, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Book.InStock, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.SelectedAuthorId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <input list="authors" value="@Model.SelectedAuthorId" id="SelectedAuthorId" name="SelectedAuthorId" class="form-control" />
@@ -81,7 +89,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Book.Author.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Book.Author.Name, new { htmlAttributes = new { @readonly="readonly", @class = "form-control" } })
+            @Html.EditorFor(model => model.Book.Author.Name, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
         </div>
     </div>
 

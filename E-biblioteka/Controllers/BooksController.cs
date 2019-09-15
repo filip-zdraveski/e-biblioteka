@@ -180,6 +180,7 @@ namespace E_biblioteka.Controllers
                 book.ImageUrl = model.Book.ImageUrl;
                 book.Rating = model.Book.Rating;
                 book.Year = model.Book.Year;
+                book.InStock = model.Book.InStock;
 
                 Author author = db.Authors.Find(model.SelectedAuthorId);
                 if (author == null)
