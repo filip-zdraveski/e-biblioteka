@@ -39,8 +39,14 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.AuthorId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
+                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AuthorId })
+                }
+                &nbsp;
+                @if (User.IsInRole("Administrator")) {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
+                }
             </td>
         </tr>
     }

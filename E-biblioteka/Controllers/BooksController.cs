@@ -65,6 +65,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             var model = new AddAuthorToBook()
@@ -78,6 +79,7 @@ namespace E_biblioteka.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult CreateFromRequest(Request request)
         {
             Book newBook = new Book
@@ -99,6 +101,7 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(AddAuthorToBook model)
         {
             if (ModelState.IsValid)
@@ -137,6 +140,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Administrator, Employee")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -165,6 +169,7 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Employee")]
         public ActionResult Edit(AddAuthorToBook model)
         {
             if (ModelState.IsValid)
@@ -203,6 +208,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -220,6 +226,7 @@ namespace E_biblioteka.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(long id)
         {
             Book book = db.Books.Find(id);

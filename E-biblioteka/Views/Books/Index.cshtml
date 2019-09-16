@@ -59,8 +59,14 @@
                     @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
                 </p>
                 <p>
-                    <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
-                    <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                    {
+                        <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
+                    }
                 </p>
 
                 @for (var i = 0; i < item.Rating; i++)
@@ -91,7 +97,7 @@
     </p>
 </div>
 <div>
-    @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
+    @if(User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
     {
         <p>Send us a request for a book that you like which is not on our list and we'll try to make it available for you</p>
         @Html.ActionLink("Send Request", "Create", "Requests")
