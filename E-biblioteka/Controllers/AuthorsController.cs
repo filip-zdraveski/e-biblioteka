@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using E_biblioteka.Models;
+using PagedList;
 
 namespace E_biblioteka.Controllers
 {
@@ -15,9 +16,28 @@ namespace E_biblioteka.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Authors
-        public ActionResult Index()
+        public ActionResult Index(int? page, string orderBy)
         {
-            return View(db.Authors.ToList());
+            var pageNumber = page ?? 1;
+            var pageSize = 9;
+            IOrderedQueryable<Author> model;
+            var authors = db.Authors;
+
+            switch (orderBy)
+            {
+                case "name-ascending":
+                    model = authors.OrderBy(a => a.Name);
+                    break;
+                case "name-descending":
+                    model = authors.OrderByDescending(a => a.Name);
+                    break;
+                default:
+                    model = authors.OrderBy(a => a.Name);
+                    break;
+            }
+
+            ViewBag.OrderBy = orderBy;
+            return View(model.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Authors/Details/5

@@ -1,55 +1,96 @@
-﻿@model IEnumerable<E_biblioteka.Models.Author>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<E_biblioteka.Models.Author>
 
 @{
     ViewBag.Title = "Index";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .card {
+        margin-bottom: 25px;
+    }
+</style>
 
-<h2>Index</h2>
-
+<div class="row text-center">
+    <h2>AUTHORS</h2>
+</div>
+<div class="clearfix">
+    <br />
+</div>
+<div class="row" style="margin-bottom: 15px;">
+    <div class="col-xs-12 col-sm-4 col-lg-4 navbar-right">
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="search" style="cursor: pointer;">Search an author:</label>
+                <input id="search" type="search" placeholder="Enter the author's name" class="form-control" name="query" />
+            </div>
+            <br />
+            <br />
+            <div id="order" class="form-group">
+                <label for="order-list" style="cursor: pointer">Order by:</label>
+                <select id="order-list" class="form-control">
+                    <option value="name-ascending">Name (A-Z)</option>
+                    <option value="name-descending">Name (Z-A)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear-fix">
+    <br />
+</div>
 <p>
     @if (User.IsInRole("Administrator"))
     {
         @Html.ActionLink("Create New", "Create")
     }
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })
-            </td>
-            <td>
-                <img src="@item.ImageUrl" style="max-width: 200px; max-height: 200px;" alt="@item.Name" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
+@foreach (var item in Model)
+{
+    <div class="card bg-light col-lg-4 mb-2">
+        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px;" />
+        <div class="card-body">
+            <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })</h5>
+            <p>
                 @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.AuthorId })
+                    <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.AuthorId }) </button>
                 }
-                &nbsp;
-                @if (User.IsInRole("Administrator")) {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
+                @if (User.IsInRole("Administrator"))
+                {
+                    <button class="btn-default">@Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })</button>
                 }
-            </td>
-        </tr>
-    }
+            </p>
+        </div>
+    </div>
+}
 
-</table>
+<div class="row">
+    <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("select option").each(function () {
+                var value = $(this).attr("value");
+                if (document.location.search.includes(value)) {
+                    $(this).attr("selected", true);
+                    return;
+                }
+            });
+
+            $("select").on("change",
+                function () {
+                    document.location = "?orderBy=" + this.value;
+                });
+        });
+    </script>
+}
+
 
