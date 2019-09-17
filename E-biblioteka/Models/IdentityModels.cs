@@ -64,5 +64,7 @@ namespace E_biblioteka.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<E_biblioteka.Models.Forum.Post> Posts { get; set; }
     }
 }
