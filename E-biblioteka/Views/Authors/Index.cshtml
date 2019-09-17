@@ -50,7 +50,7 @@
 @foreach (var item in Model)
 {
     <div class="card bg-light col-lg-4 mb-2">
-        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px;" />
+        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px; cursor: pointer;" onclick="window.location='Authors/Details/@item.AuthorId'" />
         <div class="card-body">
             <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })</h5>
             <p>

@@ -19,14 +19,11 @@ namespace E_biblioteka.Models
         [StringLength(64, ErrorMessage = "Surname must not exceed 64 characters!")]
         public string Surname { get; set; }
 
-        [Required]
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
         public string Address { get; set; }
 
-        [Required]
         public string City { get; set; }
 
         [Display(Name = "Subscription Start Date")]

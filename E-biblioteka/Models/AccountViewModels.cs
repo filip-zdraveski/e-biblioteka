@@ -77,17 +77,14 @@ namespace E_biblioteka.Models
         [Display(Name = "Username")]
         public string UserName{ get; set; }
 
-        [Required]
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        [Required]
         public string Address { get; set; }
 
-        [Required]
         public string City { get; set; }
 
         public bool IsMember { get; set; }

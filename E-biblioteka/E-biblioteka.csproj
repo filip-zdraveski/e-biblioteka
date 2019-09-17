@@ -223,6 +223,14 @@
     <Compile Include="Migrations\201909152108135_ModelsDataAnnotations.Designer.cs">
       <DependentUpon>201909152108135_ModelsDataAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909172228256_RegisterChanges.cs" />
+    <Compile Include="Migrations\201909172228256_RegisterChanges.Designer.cs">
+      <DependentUpon>201909172228256_RegisterChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909172234153_RegisterChanges1.cs" />
+    <Compile Include="Migrations\201909172234153_RegisterChanges1.Designer.cs">
+      <DependentUpon>201909172234153_RegisterChanges1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
@@ -611,6 +619,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909152108135_ModelsDataAnnotations.resx">
       <DependentUpon>201909152108135_ModelsDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909172228256_RegisterChanges.resx">
+      <DependentUpon>201909172228256_RegisterChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909172234153_RegisterChanges1.resx">
+      <DependentUpon>201909172234153_RegisterChanges1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
