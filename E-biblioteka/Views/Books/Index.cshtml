@@ -17,71 +17,69 @@
     }
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row text-center">
-        <h2>BOOKLIST</h2>
+        <h2>Books</h2>
     </div>
-    <div class="clearfix">
-        <br />
-    </div>
-    <div class="row" style="margin-bottom: 15px;">
-        <div class="col-xs-12 col-sm-4 col-lg-4 navbar-right">
-            <div class="form-inline">
+    <div class="row" style="margin-bottom: 50px;">
+        <span style="margin-left: 100px;">
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Create New", "Create")
+            }
+        </span>
+        <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
+            <div class="form-inline" style="margin-left: 80px;">
                 <div class="form-group">
-                    <label for="search" style="cursor: pointer;">Search books:</label>
-                    <input id="search" type="search" placeholder="Enter the book title" class="form-control" name="query" />
-                </div>
-                <br />
-                <br />
-                <div id="order" class="form-group">
-                    <label for="order-list" style="cursor: pointer">Order by:</label>
-                    <select id="order-list" class="form-control">
+                    <label for="search"><i class="fa fa-search"></i></label>
+                    <input class="form-control" style="width: 40%; margin-right: 30px;" id="search" type="search" placeholder="Enter the book title" name="query" />
+                    <label class="" for="order-list"><i class="fa fa-sort"></i></label>
+                    <select id="order-list" class="form-control" style="width: 42%;">
                         <option value="title-ascending">Title (A-Z)</option>
                         <option value="title-descending">Title (Z-A)</option>
                         <option value="rating-descending">Top Rated</option>
-                        <option value="year-ascending">Publish Date (newest)</option>
+                        <option value="year-descending">Publish Date (newest)</option>
                         <option value="year-ascending">Publish Date (oldest)</option>
                     </select>
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="clear-fix">
-        <br />
-    </div>
-    @foreach (var item in Model)
-    {
-        <div class="card bg-light col-lg-4 mb-2">
-            <img class="card-img-top" src="@item.ImageUrl" style="width: 150px; height: 200px;" />
-            <div class="card-body">
-                <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
-                <p>
-                    @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
-                </p>
-                <p>
-                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-                    {
-                        <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
-                    }
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
-                    }
-                </p>
+    <div class="container-fluid text-center">
+        @foreach (var item in Model)
+        {
+            <div class="card bg-light col-lg-4 mb-2">
+                <img class="card-img-top" src="@item.ImageUrl" style="width: 150px; height: 200px;" />
+                <div class="card-body">
+                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
+                    <p>
+                        @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
+                    </p>
+                    <p>
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                        {
+                            <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
+                        }
+                    </p>
 
-                @for (var i = 0; i < item.Rating; i++)
-                {
-                    <span class="fa fa-star checked"></span>
-                }
+                    @for (var i = 0; i < item.Rating; i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
 
-                @for (var i = (item.Rating + 1); i <= 5; i++)
-                {
-                    <span class="fa fa-star"></span>
-                }
+                    @for (var i = (item.Rating + 1); i <= 5; i++)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+                </div>
             </div>
-        </div>
-    }
-
+        }
+    </div>
     <div class="row">
         <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
@@ -89,15 +87,7 @@
     </div>
 </div>
 <div>
-    <p>
-        @if (User.IsInRole("Administrator"))
-        {
-            @Html.ActionLink("Create New", "Create")
-        }
-    </p>
-</div>
-<div>
-    @if(User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
+    @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
     {
         <p>Send us a request for a book that you like which is not on our list and we'll try to make it available for you</p>
         @Html.ActionLink("Send Request", "Create", "Requests")
