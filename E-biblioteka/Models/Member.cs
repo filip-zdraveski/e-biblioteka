@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_biblioteka.Models.Forum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,6 +31,9 @@ namespace E_biblioteka.Models
         public string SubscriptionStartDate { get; set; }
         [Display(Name = "Subscription End Date")]
         public string SubscriptionEndDate { get; set; }
+
+        public virtual ICollection<Post> Posts{ get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
     }
 }

@@ -9,7 +9,7 @@ namespace E_biblioteka.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(E_biblioteka.Models.ApplicationDbContext context)
