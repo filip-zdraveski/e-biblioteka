@@ -58,6 +58,21 @@
                         @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
                     </p>
                     <p>
+                        @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                        {
+                            if (item.InStock > 0)
+                            {
+                                <button type="button" class="btn btn-default" onclick="window.location='Books/Order/@item.BookId'">
+                                    <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-default disabled">
+                                    <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+                                </button>
+                            }
+                        }
                         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                         {
                             <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>

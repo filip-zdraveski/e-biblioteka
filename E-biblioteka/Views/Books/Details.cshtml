@@ -19,6 +19,14 @@
         </dd>
 
         <dt>
+            Author's Name
+        </dt>
+
+        <dd>
+            @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId }, new { })
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
 
@@ -61,6 +69,21 @@
     </dl>
 </div>
 <p>
+    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+    {
+        if (Model.InStock > 0)
+        {
+            <button type="button" class="btn btn-default" onclick="window.location='/Books/Order/@Model.BookId'">
+                <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-default disabled">
+                <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+            </button>
+        }
+    }
     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.BookId })

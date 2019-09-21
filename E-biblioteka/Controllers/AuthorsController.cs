@@ -47,7 +47,7 @@ namespace E_biblioteka.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = db.Authors.Include(a => a.Books).FirstOrDefault(a => a.AuthorId == id);
             if (author == null)
             {
                 return HttpNotFound();

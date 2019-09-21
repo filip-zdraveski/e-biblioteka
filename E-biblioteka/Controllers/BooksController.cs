@@ -56,7 +56,7 @@ namespace E_biblioteka.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -233,6 +233,21 @@ namespace E_biblioteka.Controllers
             db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Member, Moderator")]
+        public ActionResult Order(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(book);
         }
 
         protected override void Dispose(bool disposing)
