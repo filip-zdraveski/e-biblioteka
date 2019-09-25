@@ -14,6 +14,10 @@ namespace E_biblioteka.Controllers
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUser au = new ApplicationUser();
+
+        // GET: AddCommentToPost
+        //
 
         // GET: Posts
         public ActionResult Index()
@@ -37,9 +41,15 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create()
         {
-            return View();
+            NewPost model = new NewPost();
+            {
+                model.UserId = au.Id;
+                model.Books = db.Books.ToList();
+            }
+            return View(model);
         }
 
         // POST: Posts/Create
@@ -47,15 +57,29 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,BookId,Title,Content")] Post post)
+        public ActionResult Create([Bind(Include = "UserId,BookId,Title,Content")] NewPost model)
         {
+            Post post = new Post();
+            //TODO 
+
+
             if (ModelState.IsValid)
             {
+                try
+                {
+                    post.UserId = model.UserId;
+                    post.Title = model.Title;
+                    post.BookId = model.BookId;
+                    post.Content = model.Content;
+                }
+                catch
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(post);
         }
 
