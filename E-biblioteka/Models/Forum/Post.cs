@@ -12,7 +12,7 @@ namespace E_biblioteka.Models.Forum
         public int Id{ get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         public int BookId { get; set; }
@@ -27,6 +27,13 @@ namespace E_biblioteka.Models.Forum
 
         public virtual Member User { get; set; }
         public virtual Book Book { get; set; }
-        public virtual ICollection<Comment> Comments{ get; set; }
+        public virtual List<Comment> Comments{ get; set; }
+
+        public Post()
+        {
+            User = new Member();
+            Book = new Book();
+            Comments = new List<Comment>();
+        }
     }
 }
