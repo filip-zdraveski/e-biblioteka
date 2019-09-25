@@ -91,7 +91,7 @@ namespace E_biblioteka.Models
 
         [Display(Name = "Subscription Duration in Months")]
         [Range(1, 60, ErrorMessage = "Please enter a number between 1 and 60")]
-        public int SubscriptionDurationInMonths { get; set; }
+        public int? SubscriptionDurationInMonths { get; set; }
 
         [Required]
         [EmailAddress]
@@ -99,8 +99,8 @@ namespace E_biblioteka.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$", ErrorMessage = "Passwords must have 8-15 characters and must contain the following: upper case (A-Z), lower case (a-z), number (0-9) and special character (e.g. !@#$%^&*)")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

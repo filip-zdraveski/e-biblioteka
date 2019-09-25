@@ -14,7 +14,7 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-            @if(ViewBag.UserNameExists != null)
+            @if (ViewBag.UserNameExists != null)
             {
                 <span class="text-danger">@ViewBag.UserNameExists</span>
             }
@@ -92,14 +92,16 @@
     <div class="form-group">
         <div>
             <label class="checkbox-inline">
-                @Html.CheckBoxFor(m => m.IsMember, new { @checked = "true" })
+                @Html.CheckBoxFor(m => m.IsMember, new { @onchange = "valueChanged()" })
                 <span class="text-info">Do you want to become our member?</span>
             </label>
         </div>
-        @Html.LabelFor(m => m.SubscriptionDurationInMonths, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SubscriptionDurationInMonths, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.SubscriptionDurationInMonths, "", new { @class = "text-danger" })
+        <div id="subscription">
+            @Html.LabelFor(m => m.SubscriptionDurationInMonths, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.SubscriptionDurationInMonths, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SubscriptionDurationInMonths, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -111,4 +113,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            valueChanged();
+        });
+
+        function valueChanged() {
+            if ($('#IsMember').is(":checked"))
+                $("#subscription").show();
+            else
+                $("#subscription").hide();
+        }
+    </script>
 }

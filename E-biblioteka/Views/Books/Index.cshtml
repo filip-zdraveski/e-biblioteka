@@ -30,20 +30,22 @@
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
             <div class="form-inline" style="margin-left: 80px;">
-                <div class="form-group">
-                    <label for="search"><i class="fa fa-search"></i></label>
-                    <input class="form-control" style="width: 40%; margin-right: 30px;" id="search" type="search" placeholder="Enter the book title" name="query" />
-                    <label class="" for="order-list"><i class="fa fa-sort"></i></label>
-                    <select id="order-list" class="form-control" style="width: 42%;">
-                        <option>--Select an option--</option>
-                        <option value="title-ascending">Title (A-Z)</option>
-                        <option value="title-descending">Title (Z-A)</option>
-                        <option value="rating-descending">Top Rated</option>
-                        <option value="year-descending">Publish Date (newest)</option>
-                        <option value="year-ascending">Publish Date (oldest)</option>
-                    </select>
-                </div>
-
+                @using (Html.BeginForm("Index", "Books", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <label for="search"><i class="fa fa-search"></i></label>
+                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 40%; margin-right: 30px", @placeholder = "Enter book name" })
+                        <label for="order-list"><i class="fa fa-sort"></i></label>
+                        <select id="order-list" class="form-control" style="width: 42%;">
+                            <option value="">--Select an option--</option>
+                            <option value="title-ascending">Title (A-Z)</option>
+                            <option value="title-descending">Title (Z-A)</option>
+                            <option value="rating-descending">Top Rated</option>
+                            <option value="year-descending">Publish Date (newest)</option>
+                            <option value="year-ascending">Publish Date (oldest)</option>
+                        </select>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -122,9 +124,10 @@
                 }
             });
 
+
             $("select").on("change",
                 function () {
-                    document.location = "?orderBy=" + this.value;
+                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
                 });
         });
     </script>

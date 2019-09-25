@@ -205,7 +205,7 @@ namespace E_biblioteka.Controllers
                 if (user.IsMember.Value)
                 {
                     user.SubscriptionStartDate = DateTime.Now;
-                    if (model.SubscriptionDurationInMonths == 0)
+                    if (model.SubscriptionDurationInMonths == 0 || model.SubscriptionDurationInMonths == null)
                     {
                         user.SubscriptionDurationInMonths = 12;
                     }
