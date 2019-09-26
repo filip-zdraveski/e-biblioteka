@@ -12,85 +12,81 @@
     }
 </style>
 
-<div class="row text-center">
-    <h2>AUTHORS</h2>
-</div>
-<div class="clearfix">
-    <br />
-</div>
-<div class="row" style="margin-bottom: 15px;">
-    <div class="col-xs-12 col-sm-4 col-lg-4 navbar-right">
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="search" style="cursor: pointer;">Search an author:</label>
-                <input id="search" type="search" placeholder="Enter the author's name" class="form-control" name="query" />
-            </div>
-            <br />
-            <br />
-            <div id="order" class="form-group">
-                <label for="order-list" style="cursor: pointer">Order by:</label>
-                <select id="order-list" class="form-control">
-                    <option value="name-ascending">Name (A-Z)</option>
-                    <option value="name-descending">Name (Z-A)</option>
-                </select>
+<div class="container-fluid">
+    <div class="row text-center">
+        <h2>Authors</h2>
+    </div>
+    <div class="row" style="margin-bottom: 50px;">
+        <span style="margin-left: 100px;">
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Create New", "Create")
+            }
+        </span>
+        <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
+            <div class="form-inline" style="margin-left: 80px;">
+                @using (Html.BeginForm("Index", "Authors", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <label for="search"><i class="fa fa-search"></i></label>
+                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 40%; margin-right: 30px", @placeholder = "Enter author's name" })
+                        <label for="order-list"><i class="fa fa-sort"></i></label>
+                        <select id="order-list" class="form-control" style="width: 40%;">
+                            <option value="">--Select an option--</option>
+                            <option value="name-ascending">Name (A-Z)</option>
+                            <option value="name-descending">Name (Z-A)</option>
+                        </select>
+                    </div>
+                }
             </div>
         </div>
     </div>
-</div>
-<div class="clear-fix">
-    <br />
-</div>
-<p>
-    @if (User.IsInRole("Administrator"))
-    {
-        @Html.ActionLink("Create New", "Create")
-    }
-</p>
 
-@foreach (var item in Model)
-{
-    <div class="card bg-light col-lg-4 mb-2">
-        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px; cursor: pointer;" onclick="window.location='Authors/Details/@item.AuthorId'" />
-        <div class="card-body">
-            <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })</h5>
-            <p>
-                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-                {
-                    <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.AuthorId }) </button>
-                }
-                @if (User.IsInRole("Administrator"))
-                {
-                    <button class="btn-default">@Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })</button>
-                }
-            </p>
+    <div class="container-fluid text-center">
+        @foreach (var item in Model)
+        {
+            <div class="card bg-light col-lg-4 mb-2">
+                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 200px; cursor: pointer;" onclick="window.location='Authors/Details/@item.AuthorId'" />
+                <div class="card-body">
+                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })</h5>
+                    <p>
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                        {
+                            <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.AuthorId }) </button>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <button class="btn-default">@Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })</button>
+                        }
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
         </div>
     </div>
-}
-
-<div class="row">
-    <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
-    </div>
 </div>
+    @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-@section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $("select option").each(function () {
-                var value = $(this).attr("value");
-                if (document.location.search.includes(value)) {
-                    $(this).attr("selected", true);
-                    return;
-                }
-            });
-
-            $("select").on("change",
-                function () {
-                    document.location = "?orderBy=" + this.value;
+                $("select option").each(function () {
+                    var value = $(this).attr("value");
+                    if (document.location.search.includes(value)) {
+                        $(this).attr("selected", true);
+                        return;
+                    }
                 });
-        });
-    </script>
-}
+
+                $("select").on("change",
+                    function () {
+                        document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
+                    });
+            });
+        </script>
+    }
 
 
