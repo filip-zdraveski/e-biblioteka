@@ -25,14 +25,10 @@ namespace E_biblioteka.Models.Forum
         [StringLength(500, ErrorMessage = "Content length must not exceed 500 characters")]
         public string Content { get; set; }
 
-        public virtual Member User { get; set; }
-        public virtual Book Book { get; set; }
         public virtual List<Comment> Comments{ get; set; }
 
         public Post()
         {
-            User = new Member();
-            Book = new Book();
             Comments = new List<Comment>();
         }
     }
