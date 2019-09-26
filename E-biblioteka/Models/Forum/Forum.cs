@@ -7,6 +7,5 @@ namespace E_biblioteka.Models.Forum
 {
     public class Forum
     {
-
     }
 }

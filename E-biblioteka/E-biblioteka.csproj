@@ -231,13 +231,20 @@
     <Compile Include="Migrations\201909172234153_RegisterChanges1.Designer.cs">
       <DependentUpon>201909172234153_RegisterChanges1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909260904231_Forum.cs" />
+    <Compile Include="Migrations\201909260904231_Forum.Designer.cs">
+      <DependentUpon>201909260904231_Forum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Forum\AddCommentToPost.cs" />
     <Compile Include="Models\Forum\Comment.cs" />
+    <Compile Include="Models\Forum\Forum.cs" />
+    <Compile Include="Models\Forum\NewPost.cs" />
     <Compile Include="Models\Forum\Post.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Library.cs" />
@@ -626,6 +633,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909172234153_RegisterChanges1.resx">
       <DependentUpon>201909172234153_RegisterChanges1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909260904231_Forum.resx">
+      <DependentUpon>201909260904231_Forum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

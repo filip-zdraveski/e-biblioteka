@@ -7,7 +7,7 @@ namespace E_biblioteka.Models.Forum
 {
     public class NewPost
     {
-        public  List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }
         public string UserId { get; set; }
 
         public int BookId { get; set; }
