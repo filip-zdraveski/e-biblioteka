@@ -16,37 +16,55 @@ namespace E_biblioteka.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index(int? page, string orderBy, string search)
+        public ActionResult Index(int? page, string orderBy, string search, string bookGenre)
         {
             var pageNumber = page ?? 1;
             var pageSize = 9;
-            var books = db.Books.Include(b => b.Author).Where(iterator => iterator.Name.Contains(search) || search == null);
+            var books = db.Books.Include(b => b.Author);
 
-            IOrderedQueryable<Book> model;
+            IQueryable<string> genreQuery = from b in db.Books
+                                            orderby b.Genre
+                                            select b.Genre;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                books = books.Where(iterator => iterator.Name.Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(iterator => iterator.Genre == bookGenre);
+            }
+
             switch (orderBy)
             {
                 case "title-ascending":
-                    model = books.OrderBy(b => b.Name);
+                    books = books.OrderBy(b => b.Name);
                     break;
                 case "title-descending":
-                    model = books.OrderByDescending(b => b.Name);
+                    books = books.OrderByDescending(b => b.Name);
                     break;
                 case "rating-descending":
-                    model = books.OrderByDescending(b => b.Rating);
+                    books = books.OrderByDescending(b => b.Rating);
                     break;
                 case "year-ascending":
-                    model = books.OrderBy(b => b.Year);
+                    books = books.OrderBy(b => b.Year);
                     break;
                 case "year-descending":
-                    model = books.OrderByDescending(b => b.Year);
+                    books = books.OrderByDescending(b => b.Year);
                     break;
                 default:
-                    model = books.OrderByDescending(b => b.Rating);
+                    books = books.OrderByDescending(b => b.Rating);
                     break;
             }
 
+            var booksVM = new BooksViewModel
+            {
+                Genres = genreQuery.Distinct().ToList(),
+                Books = books.ToPagedList(pageNumber, pageSize)
+            };
             ViewBag.OrderBy = orderBy;
-            return View(model.ToPagedList(pageNumber, pageSize));
+            return View(booksVM);
         }
 
         // GET: Books/Details/5

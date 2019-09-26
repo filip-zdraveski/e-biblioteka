@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IPagedList<E_biblioteka.Models.Book>
+@model E_biblioteka.Models.BooksViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -45,12 +45,22 @@
                             <option value="year-ascending">Publish Date (oldest)</option>
                         </select>
                     </div>
+                    <div class="form-group" style="margin-top: 30px;">
+                        <label for="genres-list">Search by Genre: </label>
+                        <select id="genres-list" class="form-control" style="width: 60%;">
+                            <option value="">--All Genres--</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre">@genre</option>
+                            }
+                        </select>
+                    </div>
                 }
             </div>
         </div>
     </div>
     <div class="container-fluid text-center">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Books)
         {
             <div class="card bg-light col-lg-4 mb-2">
                 <img class="card-img-top" src="@item.ImageUrl" style="width: 150px; height: 200px; cursor: pointer;" onclick="window.location='Books/Details/@item.BookId'" />
@@ -100,7 +110,7 @@
     </div>
     <div class="row">
         <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
+            @Html.PagedListPager(Model.Books, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
         </div>
     </div>
 </div>
@@ -125,9 +135,14 @@
             });
 
 
-            $("select").on("change",
+            $("#order-list").on("change",
                 function () {
-                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
+                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value") + "&bookGenre=" + $("#genres-list").val();
+                });
+
+            $("#genres-list").on("change",
+                function () {
+                    document.location = "?orderBy=" + $("#order-list").val() + "&search=" + $("#search").attr("value") + "&bookGenre=" + this.value;
                 });
         });
     </script>

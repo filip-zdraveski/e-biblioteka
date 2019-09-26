@@ -241,6 +241,7 @@
     <Compile Include="Models\AddToRoleModel.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BooksViewModel.cs" />
     <Compile Include="Models\Forum\AddCommentToPost.cs" />
     <Compile Include="Models\Forum\Comment.cs" />
     <Compile Include="Models\Forum\NewPost.cs" />
