@@ -16,12 +16,18 @@ namespace E_biblioteka.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Authors
-        public ActionResult Index(int? page, string orderBy)
+        public ActionResult Index(int? page, string orderBy, string search)
         {
             var pageNumber = page ?? 1;
             var pageSize = 9;
-            IOrderedQueryable<Author> model;
-            var authors = db.Authors;
+            var authors = from a in db.Authors
+                          select a;
+            IOrderedQueryable < Author > model;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                authors = authors.Where(iterator => iterator.Name.Contains(search));
+            }
 
             switch (orderBy)
             {
