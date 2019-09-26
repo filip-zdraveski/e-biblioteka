@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace E_biblioteka.Controllers
 {
+    [Authorize]
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -21,12 +22,15 @@ namespace E_biblioteka.Controllers
         //
 
         // GET: Posts
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            ViewBag.UserId = User.Identity.GetUserId();
             return View(db.Posts.ToList());
         }
 
         // GET: Posts/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,7 +46,6 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Posts/Create
-        [Authorize]
         public ActionResult Create()
         {
             NewPost model = new NewPost();
@@ -60,9 +63,6 @@ namespace E_biblioteka.Controllers
         public ActionResult Create([Bind(Include = "UserId,BookId,Title,Content")] NewPost model)
         {
             Post post = new Post();
-            //TODO 
-
-
             if (ModelState.IsValid)
             {
                 try
@@ -71,6 +71,8 @@ namespace E_biblioteka.Controllers
                     post.Title = model.Title;
                     post.BookId = model.BookId;
                     post.Content = model.Content;
+                    post.SelectedBook = db.Books.Find(model.BookId);
+                    post.User = db.Users.Find(User.Identity.GetUserId());
                 }
                 catch
                 {
@@ -86,6 +88,10 @@ namespace E_biblioteka.Controllers
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (id != null && !IsAuthorized(id.Value))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,6 +113,10 @@ namespace E_biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!IsAuthorized(post.Id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                }
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -117,6 +127,10 @@ namespace E_biblioteka.Controllers
         // GET: Posts/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (id != null && !IsAuthorized(id.Value))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -134,6 +148,10 @@ namespace E_biblioteka.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!IsAuthorized(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
@@ -147,6 +165,28 @@ namespace E_biblioteka.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private Boolean  IsAuthorized(int id)
+        {
+            string PostId = id.ToString();
+            string UserId = User.Identity.GetUserId();
+            Post post = db.Posts.Find(PostId);
+            ApplicationUser user = db.Users.Find(UserId);
+            string RoleId = GetUserRole(UserId);
+            if ( RoleId == "1" || RoleId == "3" || post.UserId == UserId)
+            {
+                return true;
+            }
+            else
+            { 
+                return false;
+            }
+        }
+        private string GetUserRole(string UserId)
+        {
+            ApplicationUser user = db.Users.Find(UserId);
+            return user.Roles.ToList().FirstOrDefault(m => m.UserId == UserId).RoleId;//1,3
         }
     }
 }
