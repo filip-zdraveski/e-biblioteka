@@ -231,6 +231,10 @@
     <Compile Include="Migrations\201909260904231_Forum.Designer.cs">
       <DependentUpon>201909260904231_Forum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909261757498_post.cs" />
+    <Compile Include="Migrations\201909261757498_post.Designer.cs">
+      <DependentUpon>201909261757498_post.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
@@ -571,10 +575,10 @@
     <Content Include="Views\Books\CreateFromRequest.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Delete.cshtml" />
-    <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Books\Order.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -631,6 +635,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909260904231_Forum.resx">
       <DependentUpon>201909260904231_Forum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909261757498_post.resx">
+      <DependentUpon>201909261757498_post.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using E_biblioteka.Models;
 using E_biblioteka.Models.Forum;
+using Microsoft.AspNet.Identity;
 
 namespace E_biblioteka.Controllers
 {
@@ -46,7 +47,6 @@ namespace E_biblioteka.Controllers
         {
             NewPost model = new NewPost();
             {
-                model.UserId = au.Id;
                 model.Books = db.Books.ToList();
             }
             return View(model);
@@ -67,7 +67,7 @@ namespace E_biblioteka.Controllers
             {
                 try
                 {
-                    post.UserId = model.UserId;
+                    post.UserId = User.Identity.GetUserId();
                     post.Title = model.Title;
                     post.BookId = model.BookId;
                     post.Content = model.Content;

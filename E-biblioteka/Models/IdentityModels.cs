@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using E_biblioteka.Models.Forum;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -37,6 +39,9 @@ namespace E_biblioteka.Models
 
         public bool? IsMember { get; set; }
 
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Post> Posts { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -52,6 +57,9 @@ namespace E_biblioteka.Models
         public DbSet<Author> Authors { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -62,6 +70,5 @@ namespace E_biblioteka.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<E_biblioteka.Models.Forum.Post> Posts { get; set; }
     }
 }
