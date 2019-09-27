@@ -25,6 +25,7 @@
 </style>
 <body>
 <div class="container" id="con">
+    <div class="row">
     <header id="header" class="clear" style="margin-bottom:30px;">
 
 
@@ -44,18 +45,20 @@
               @Model.Description
           </div>
       </div>
+        </div>
 
    
-<div style="margin-top:80px;">
+<div class="row" style="margin-top:20px; padding-top:20px; margin-bottom:30px;">
 
-
+    <div class="col-lg-3"
                 @if (Model.Books.Count != 0)
                 {
                     
                         <h3>
-                            @Html.DisplayNameFor(model => model.Books)
+                           <b>@Html.DisplayNameFor(model => model.Books)</b>
+                            
                         </h3>
-                        
+                        <br />
                     
                   
                         for (int i = 0; i < Model.Books.Count; i++)
@@ -67,7 +70,9 @@
                     
                     
                 }
+    </div>
 
+    <div class="col-lg-3">
         <p>
             @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
             {
@@ -88,6 +93,7 @@
 
             <!-- Modal Caption (Image Text) -->
             <div id="caption"></div>
+        </div>
         </div>
     </div>
     </div>
