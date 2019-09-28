@@ -37,7 +37,7 @@
             </header>
             <div id="container" style="margin-bottom:20px;">
                 <div id="floated" class="float float-left" style="margin-right:20px; padding-right:20px; margin-left:20px;">
-                    <img style="width: 200px; height: 250px;" src="@Model.ImageUrl" />
+                    <img id="modalImage" style="width: 200px; height: 250px;" src="@Model.ImageUrl" alt="@Model.Name  "/>
 
                 </div>
                 <div id="non" style="margin-left:40px; padding-left:20px; padding-top:20px; margin-bottom:40px; margin-right:60px; text-align:left" class="text-right">
@@ -67,6 +67,20 @@
         </div>
     </div>
 </body>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption"></div>
+</div>
+
 @section styles {
     <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
 }
