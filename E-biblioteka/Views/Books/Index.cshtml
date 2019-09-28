@@ -76,6 +76,17 @@
                         @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
                     </p>
                     <p>
+                        @for (var i = 1; i <= Math.Floor(item.Rating); i++)
+                        {
+                            <span class="fa fa-star checked"></span>
+                        }
+
+                        @for (var i = 1; i <= 5 - Math.Floor(item.Rating); i++)
+                        {
+                            <span class="fa fa-star"></span>
+                        }
+                    </p>
+                    <p>
                         @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
                         {
                             if (item.InStock > 0)
@@ -93,23 +104,15 @@
                         }
                         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                         {
-                            <button class="btn-default">@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) </button>
+                            <a href="@Url.Action("Edit", "Books", new { id = item.BookId })" class="btn btn-info">Edit</a>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
-                            <button class="btn-default"> @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</button>
+                            <a href="@Url.Action("Delete", "Books", new { id = item.BookId })" class="btn btn-danger">Delete</a>
                         }
                     </p>
 
-                    @for (var i = 1; i <= Math.Floor(item.Rating); i++)
-                    {
-                        <span class="fa fa-star checked"></span>
-                    }
 
-                    @for (var i = 1; i <= 5 - Math.Floor(item.Rating); i++)
-                    {
-                        <span class="fa fa-star"></span>
-                    }
                 </div>
             </div>
         }
