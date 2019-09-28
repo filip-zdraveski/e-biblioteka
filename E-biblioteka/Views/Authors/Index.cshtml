@@ -20,7 +20,7 @@
         <span style="margin-left: 100px;">
             @if (User.IsInRole("Administrator"))
             {
-                @Html.ActionLink("Create New", "Create")
+                <a href="@Url.Action("Create", "Authors")" class="btn btn-primary">+ Add an author</a>
             }
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
@@ -69,24 +69,24 @@
         </div>
     </div>
 </div>
-    @section scripts{
-        <script type="text/javascript">
-            $(document).ready(function () {
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                $("select option").each(function () {
-                    var value = $(this).attr("value");
-                    if (document.location.search.includes(value)) {
-                        $(this).attr("selected", true);
-                        return;
-                    }
-                });
-
-                $("select").on("change",
-                    function () {
-                        document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
-                    });
+            $("select option").each(function () {
+                var value = $(this).attr("value");
+                if (document.location.search.includes(value)) {
+                    $(this).attr("selected", true);
+                    return;
+                }
             });
-        </script>
-    }
+
+            $("select").on("change",
+                function () {
+                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
+                });
+        });
+    </script>
+}
 
 

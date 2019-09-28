@@ -25,7 +25,7 @@
         <span style="margin-left: 100px;">
             @if (User.IsInRole("Administrator"))
             {
-                @Html.ActionLink("Create New", "Create")
+                <a href="@Url.Action("Create", "Books")" class="btn btn-primary">+ Add a book</a>
             }
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
@@ -69,11 +69,11 @@
         @foreach (var item in Model.Books)
         {
             <div class="card bg-light col-lg-4 mb-2">
-                <img class="card-img-top" src="@item.ImageUrl" style="width: 150px; height: 200px; cursor: pointer;" onclick="window.location='Books/Details/@item.BookId'" />
+                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='Books/Details/@item.BookId'" />
                 <div class="card-body">
                     <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId }, new { })</h5>
                     <p>
-                        @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
+                        by @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId }, new { })
                     </p>
                     <p>
                         @for (var i = 1; i <= Math.Floor(item.Rating); i++)
