@@ -4,104 +4,73 @@
     ViewBag.Title = "Details";
 }
 <style>
-    #floated{
+    #floated {
         float: left;
     }
-    #non{
-        float:none;
-        text-align:center;
+
+    #non {
+        float: none;
+        text-align: center;
     }
-    #con{
-        background-color:white;
-        border:1px solid black;
-        margin-top:20px;
-        width:1000px;
-        max-height:500px;
+
+    #con {
+        background-color: white;
+        border: 1px solid black;
+        margin-top: 20px;
+        width: 1000px;
+        max-height: 500px;
     }
-    body{
-        background-color:lightgray;
+
+    body {
+        background-color: lightgray;
     }
-    
 </style>
 <body>
-<div class="container" id="con">
-    <div class="row">
-    <header id="header" class="clear" style="margin-bottom:30px;">
+    <div class="container" id="con">
+        <div class="row">
+            <header id="header" class="clear" style="margin-bottom:30px;">
+                <div id="upper-logo">
+                    <h1 class="logo" data-content-field="site-title" style="margin-left:20px">
+                        @Html.DisplayFor(model => model.Name)
+                    </h1>
+                </div>
+            </header>
+            <div id="container" style="margin-bottom:20px;">
+                <div id="floated" class="float float-left" style="margin-right:20px; padding-right:20px; margin-left:20px;">
+                    <img style="width: 200px; height: 250px;" src="@Model.ImageUrl" />
 
-
-
-        <div id="upper-logo">
-            <h1 class="logo" data-content-field="site-title" style="margin-left:20px">
-                @Html.DisplayFor(model => model.Name)
-            </h1>
-        </div>
-     </header>
-      <div id="container" style="margin-bottom:20px;">
-          <div id="floated" class="float float-left" style="margin-right:20px; padding-right:20px; margin-left:20px;">
-              <img style="width: 200px; height: 250px;" src="@Model.ImageUrl" />
-
-          </div>
-          <div id="non" style="margin-left:40px; padding-left:20px; padding-top:20px; margin-bottom:40px; margin-right:60px; text-align:left" class="text-right">
-              @Model.Description
-          </div>
-      </div>
+                </div>
+                <div id="non" style="margin-left:40px; padding-left:20px; padding-top:20px; margin-bottom:40px; margin-right:60px; text-align:left" class="text-right">
+                    @Model.Description
+                </div>
+            </div>
         </div>
 
-   
-<div class="row" style="margin-top:20px; padding-top:20px; margin-bottom:30px;">
-
-    <div class="col-lg-3"
+        <div class="row" style="margin-bottom:30px;">
+            <div class="col-lg-3">
                 @if (Model.Books.Count != 0)
                 {
-                    
-                        <h3>
-                           <b>@Html.DisplayNameFor(model => model.Books)</b>
-                            
-                        </h3>
-                        <br />
-                    
-                  
-                        for (int i = 0; i < Model.Books.Count; i++)
+                    <h3>
+                        <b>@Html.DisplayNameFor(model => model.Books)</b>
+                    </h3>
+                    <ul>
+                        @for (int i = 0; i < Model.Books.Count; i++)
                         {
-                          
-                           @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId }, new { }) 
-                       
+                            <li>
+                                @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId }, new { })
+                            </li>
                         }
-                    
-                    
+                    </ul>
+
                 }
-    </div>
-
-    <div class="col-lg-3">
-        <p>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId })
-            }
-            &nbsp;
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-            <!-- The Close Button -->
-            <span class="close">&times;</span>
-
-            <!-- Modal Content (The Image) -->
-            <img class="modal-content" id="img01">
-
-            <!-- Modal Caption (Image Text) -->
-            <div id="caption"></div>
+            </div>
         </div>
-        </div>
-    </div>
     </div>
 </body>
-        @section styles {
-            <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
-        }
+@section styles {
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
+}
 
-        @section scripts {
-            <script type="text/javascript" src="@Href("~/Scripts/ModalImage.js")"></script>
-        }
+@section scripts {
+    <script type="text/javascript" src="@Href("~/Scripts/ModalImage.js")"></script>
+}

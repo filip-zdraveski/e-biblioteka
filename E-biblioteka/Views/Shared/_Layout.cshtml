@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @RenderSection("styles", required:false)
+    @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -21,18 +22,18 @@
                 @Html.ActionLink("E-library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Books", "Index", "Books")</li>
-                    <li>@Html.ActionLink("Authors", "Index", "Authors")</li>
-                    <li>@Html.ActionLink("Forum", "Index", "Posts")</li>
+                <ul class="nav navbar-nav" style="margin-left: 15px;">
+                    <li style="margin-top: 7px;"><i class="fa fa-book fa-2x"></i>@Html.ActionLink("Books", "Index", "Books", null, new { @style = "display: inline;" } )</li>
+                    <li style="margin-top: 7px;"><i class="fa fa-user fa-2x"></i>@Html.ActionLink("Authors", "Index", "Authors", null, new { @style = "display: inline;" })</li>
+                    <li style="margin-top: 7px;"><i class="fa fa-comments fa-2x"></i>@Html.ActionLink("Forum", "Index", "Posts", null, new { @style = "display: inline;" })</li>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
-                        <li>@Html.ActionLink("Members", "Index", "Members")</li>
-                        <li>@Html.ActionLink("Requests", "Index", "Requests")</li>
+                        <li style="margin-top: 2px;">@Html.ActionLink("Members", "Index", "Members")</li>
+                        <li style="margin-top: 2px;">@Html.ActionLink("Requests", "Index", "Requests")</li>
                     }
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li>@Html.ActionLink("Manage Users", "AddUserToRole", "Account")</li>
+                        <li style="margin-top: 2px;">@Html.ActionLink("Manage Users", "AddUserToRole", "Account")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -41,9 +42,6 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <footer>
-            <p>&copy; @DateTime.Now.Year - E-library, Inc.</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

@@ -16,7 +16,7 @@ namespace E_biblioteka.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index(int? page, string orderBy, string search, string bookGenre)
+        public ActionResult Index(int? page, string orderBy, string search, string bookGenre, string authorSearch)
         {
             var pageNumber = page ?? 1;
             var pageSize = 9;
@@ -34,6 +34,11 @@ namespace E_biblioteka.Controllers
             if (!string.IsNullOrEmpty(bookGenre))
             {
                 books = books.Where(iterator => iterator.Genre == bookGenre);
+            }
+
+            if (!string.IsNullOrEmpty(authorSearch))
+            {
+                books = books.Where(iterator => iterator.Author.Name.Contains(authorSearch));
             }
 
             switch (orderBy)

@@ -3,27 +3,29 @@
 @{
     ViewBag.Title = "Details";
 }
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-   body{
-       background-color: lightgray;
-   } 
-   #contentHead{
-       background-color:white;
-       border:1px solid black;
-       margin-top:20px;
-       width:1000px;
-       height:500px;
-       margin-left:80px;
-   }
-    #floated{
+    body {
+        background-color: lightgray;
+    }
+
+    #contentHead {
+        background-color: white;
+        border: 1px solid black;
+        margin-top: 20px;
+        width: 1000px;
+        height: 500px;
+        margin-left: 80px;
+    }
+
+    #floated {
         float: left;
     }
-    #non{
-        float:none;
-        text-align:center;
+
+    #non {
+        float: none;
+        text-align: center;
     }
-   
 </style>
 <body>
     <div class="contentContainer">
@@ -34,59 +36,61 @@
             </h1>
             <p style="margin:20px; padding-top:5px">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId }, new { })</p>
             <div id="container" style="margin-bottom:20px;">
-                <div id="floated" class="float float-left" style="margin-right:50px; padding-right:20px; padding-left:30px;">
-                    <img style="width: 200px; height: 250px;" src="@Model.ImageUrl" />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <img style="width: 200px; height: 250px; margin-left: 30px;" src="@Model.ImageUrl" />
 
-                </div>
-                <div id="non" style="margin-right:100px">
-                    <p class="text-left">Genre: @Model.Genre</p>
-                    <p class="text-left">Year: @Model.Year</p>
-                    <p class="text-left">
-                        @Model.Description
-                    </p>
+                    </div>
+                    <div class="col-lg-8" style="margin-left: 100px;">
+                        <p class="text-left">Genre: @Model.Genre</p>
+                        <p class="text-left">Year: @Model.Year</p>
+                        <p class="text-left">
+                            @Model.Description
+                        </p>
+                    </div>
                 </div>
             </div>
-           
         </div>
-        <div style="margin-top:80px;">
+    </div>
+    <div style="margin-top:80px;">
 
-            <p>
-                @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+        <p>
+            @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+            {
+                if (Model.InStock > 0)
                 {
-                    if (Model.InStock > 0)
-                    {
-                        <button type="button" class="btn btn-default" onclick="window.location='/Books/Order/@Model.BookId'">
-                            <span class="glyphicon glyphicon-shopping-cart"> Order</span>
-                        </button>
-                    }
-                    else
-                    {
-                        <button type="button" class="btn btn-default disabled">
-                            <span class="glyphicon glyphicon-shopping-cart"> Order</span>
-                        </button>
-                    }
+                    <button type="button" class="btn btn-default" onclick="window.location='/Books/Order/@Model.BookId'">
+                        <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+                    </button>
                 }
-                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                else
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.BookId })
+                    <button type="button" class="btn btn-default disabled">
+                        <span class="glyphicon glyphicon-shopping-cart"> Order</span>
+                    </button>
                 }
-                @Html.ActionLink("Back to List", "Index")
-            </p>
-       
-<!-- The Modal -->
-<div id="myModal" class="modal">
+            }
+            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.BookId })
+            }
+            @Html.ActionLink("Back to List", "Index")
+        </p>
 
-    <!-- The Close Button -->
-    <span class="close">&times;</span>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-    <!-- Modal Content (The Image) -->
-    <img class="modal-content" id="img01">
+            <!-- The Close Button -->
+            <span class="close">&times;</span>
 
-    <!-- Modal Caption (Image Text) -->
-    <div id="caption"></div>
-</div>
-            </div>
-    </body>
+            <!-- Modal Content (The Image) -->
+            <img class="modal-content" id="img01">
+
+            <!-- Modal Caption (Image Text) -->
+            <div id="caption"></div>
+        </div>
+    </div>
+</body>
 @section styles {
     <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
 }
