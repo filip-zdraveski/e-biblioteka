@@ -192,7 +192,6 @@ namespace E_biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                // ne raboti, zoshto ???
                 Book book = db.Books.Find(model.Book.BookId);
                 if (book == null)
                     return HttpNotFound();
@@ -233,7 +232,7 @@ namespace E_biblioteka.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -247,7 +246,7 @@ namespace E_biblioteka.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(long id)
         {
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");

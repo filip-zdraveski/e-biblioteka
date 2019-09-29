@@ -32,14 +32,14 @@
             <div class="form-inline" style="margin-left: 80px;">
                 @using (Html.BeginForm("Index", "Books", FormMethod.Get))
                 {
-                    <div class="form-group">
+                    <div class="form-group" style="width: 100%;">
                         <label for="search"><i class="fa fa-search"></i></label>
-                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 455px;", @placeholder = "Enter book / author name" })
+                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
                     </div>
                 }
-                    <div class="form-group" style="margin-top: 20px;">
+                    <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
                         <label for="order-list"><i class="fa fa-sort"></i></label>
-                        <select id="order-list" class="form-control" style="width: 200px; margin-right: 15px;">
+                        <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
                             <option value="">--Order By--</option>
                             <option value="title-ascending">Title (A-Z)</option>
                             <option value="title-descending">Title (Z-A)</option>
@@ -48,7 +48,7 @@
                             <option value="year-ascending">Publish Date (oldest)</option>
                         </select>
                         <label for="genres-list"><i class="fa fa-sort"></i></label>
-                        <select id="genres-list" class="form-control" style="width: 200px;">
+                        <select id="genres-list" class="form-control" style="width: 185px;">
                             <option value="">--All Genres--</option>
                             @foreach (var genre in Model.Genres)
                             {
