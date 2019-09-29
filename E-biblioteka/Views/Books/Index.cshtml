@@ -28,6 +28,12 @@
                 <a href="@Url.Action("Create", "Books")" class="btn btn-primary">+ Add a book</a>
             }
         </span>
+        <span>
+            @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
+            {
+                <a href="@Url.Action("Create", "Requests")" class="btn btn-primary">+ Request a book</a>
+            }
+        </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
             <div class="form-inline" style="margin-left: 80px;">
                 @using (Html.BeginForm("Index", "Books", FormMethod.Get))
@@ -37,25 +43,25 @@
                         @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
                     </div>
                 }
-                    <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
-                        <label for="order-list"><i class="fa fa-sort"></i></label>
-                        <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
-                            <option value="">--Order By--</option>
-                            <option value="title-ascending">Title (A-Z)</option>
-                            <option value="title-descending">Title (Z-A)</option>
-                            <option value="rating-descending">Top Rated</option>
-                            <option value="year-descending">Publish Date (newest)</option>
-                            <option value="year-ascending">Publish Date (oldest)</option>
-                        </select>
-                        <label for="genres-list"><i class="fa fa-sort"></i></label>
-                        <select id="genres-list" class="form-control" style="width: 185px;">
-                            <option value="">--All Genres--</option>
-                            @foreach (var genre in Model.Genres)
-                            {
-                                <option value="@genre">@genre</option>
-                            }
-                        </select>
-                    </div>
+                <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
+                    <label for="order-list"><i class="fa fa-sort"></i></label>
+                    <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
+                        <option value="">--Order By--</option>
+                        <option value="title-ascending">Title (A-Z)</option>
+                        <option value="title-descending">Title (Z-A)</option>
+                        <option value="rating-descending">Top Rated</option>
+                        <option value="year-descending">Publish Date (newest)</option>
+                        <option value="year-ascending">Publish Date (oldest)</option>
+                    </select>
+                    <label for="genres-list"><i class="fa fa-sort"></i></label>
+                    <select id="genres-list" class="form-control" style="width: 185px;">
+                        <option value="">--All Genres--</option>
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre">@genre</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -81,24 +87,24 @@
                         }
                     </p>
                     <p>
-                        @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                       @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                    {
+                        if (item.InStock > 0)
                         {
-                            if (item.InStock > 0)
-                            {
-                                <button type="button" class="btn btn-default" onclick="window.location='Books/Order/@item.BookId'">
-                                    <span class="glyphicon glyphicon-shopping-cart"> Order</span>
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-default disabled">
-                                    <span class="glyphicon glyphicon-shopping-cart"> Order</span>
-                                </button>
-                            }
+                            <a href="@Url.Action("Order", "Books", new { id = item.BookId })" class="btn btn-default" style="margin-right: 5px;">
+                                <span><i class="fa fa-shopping-cart"></i> Order</span>
+                            </a>
                         }
+                        else
+                        {
+                            <button type="button" class="btn btn-default disabled">
+                                <span><i class="fa fa-shopping-cart"></i> Order</span>
+                            </button>
+                        }
+                    }
                         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                         {
-                            <a href="@Url.Action("Edit", "Books", new { id = item.BookId })" class="btn btn-info">Edit</a>
+                            <a href="@Url.Action("Edit", "Books", new { id = item.BookId })" class="btn btn-info" style="margin-right: 5px">Edit</a>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
@@ -116,13 +122,6 @@
             @Html.PagedListPager(Model.Books, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
         </div>
     </div>
-</div>
-<div>
-    @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
-    {
-        <p>Send us a request for a book that you like which is not on our list and we'll try to make it available for you</p>
-        @Html.ActionLink("Send Request", "Create", "Requests")
-    }
 </div>
 
 @section scripts{

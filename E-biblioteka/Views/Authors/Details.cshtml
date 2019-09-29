@@ -3,14 +3,11 @@
 @{
     ViewBag.Title = "Details";
 }
-<style>
-    #floated {
-        float: left;
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    #non {
-        float: none;
-        text-align: center;
+<style>
+    body {
+        background-color: lightgray;
     }
 
     #con {
@@ -18,55 +15,42 @@
         border: 1px solid black;
         margin-top: 20px;
         width: 1000px;
-        max-height: 500px;
-    }
-
-    body {
-        background-color: lightgray;
+        padding-bottom: 20px;
     }
 </style>
-<body>
-    <div class="container" id="con">
-        <div class="row">
-            <header id="header" class="clear" style="margin-bottom:30px;">
-                <div id="upper-logo">
-                    <h1 class="logo" data-content-field="site-title" style="margin-left:20px">
-                        @Html.DisplayFor(model => model.Name)
-                    </h1>
-                </div>
-            </header>
-            <div id="container" style="margin-bottom:20px;">
-                <div id="floated" class="float float-left" style="margin-right:20px; padding-right:20px; margin-left:20px;">
-                    <img id="modalImage" style="width: 200px; height: 280px;" src="@Model.ImageUrl" alt="@Model.Name  "/>
-
-                </div>
-                <div id="non" style="margin-left:40px; padding-left:20px; padding-top:20px; margin-bottom:40px; margin-right:60px; text-align:left" class="text-right">
-                    @Model.Description
-                </div>
+<div class="container" id="con">
+    <div class="row">
+        <h1 style="margin-left:30px;">@Model.Name</h1>
+        <div class="col-lg-3" style="margin-bottom:20px; margin-top: 30px;">
+            <img id="modalImage" style="width: 200px; height: 280px; margin-left: 20px;" src="@Model.ImageUrl" alt="@Model.Name  " />
+            <div class="text-center" style="margin-top: 20px;">
+                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                {
+                    <a href="@Url.Action("Edit", "Authors", new { id = Model.AuthorId })" class="btn btn-primary" style="margin-right: 5px; margin-left: 20px;">Edit</a>
+                }
+                <a href="@Url.Action("Index", "Authors")" class="btn btn-default">Back to list</a>
             </div>
         </div>
+        <div class="col-lg-8 text-left" style="margin-left: 30px; margin-top: 30px;">
+            @Model.Description
+            @if (Model.Books.Count != 0)
+            {
+                <h3>
+                    <b>@Html.DisplayNameFor(model => model.Books)</b>
+                </h3>
+                <ul>
+                    @for (int i = 0; i < Model.Books.Count; i++)
+                    {
+                        <li>
+                            @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId }, new { })
+                        </li>
+                    }
+                </ul>
 
-        <div class="row" style="margin-bottom:30px;">
-            <div class="col-lg-3">
-                @if (Model.Books.Count != 0)
-                {
-                    <h3>
-                        <b>@Html.DisplayNameFor(model => model.Books)</b>
-                    </h3>
-                    <ul>
-                        @for (int i = 0; i < Model.Books.Count; i++)
-                        {
-                            <li>
-                                @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId }, new { })
-                            </li>
-                        }
-                    </ul>
-
-                }
-            </div>
+            }
         </div>
     </div>
-</body>
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
