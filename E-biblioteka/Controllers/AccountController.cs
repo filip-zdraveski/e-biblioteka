@@ -55,8 +55,11 @@ namespace E_biblioteka.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AddUserToRole()
         {
+            var users = UserManager.Users.ToList();
+            users.RemoveAll(u => u.UserName == User.Identity.Name);
             var model = new AddToRoleModel();
             model.Roles = Roles.ListRoles();
+            model.Users = users;
             return View(model);
         }
 
@@ -64,7 +67,7 @@ namespace E_biblioteka.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AddUserToRole(AddToRoleModel model)
         {
-            var user = UserManager.FindByEmail(model.Email);
+            var user = UserManager.FindByName(model.UserName);
             UserManager.AddToRole(user.Id, model.SelectedRole);
             return RedirectToAction("Index", "Home");
         }

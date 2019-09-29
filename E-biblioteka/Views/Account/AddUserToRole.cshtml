@@ -3,15 +3,30 @@
     ViewBag.Title = "AddUserToRole";
 }
 
-<h2>Add user with this email to role:</h2>
+<h2 style="margin-bottom: 40px;">Add user to role:</h2>
 @using (Html.BeginForm("AddUserToRole", "Account"))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div>
+            <input list="users-list" class="form-control" name="UserName" />
+            <datalist id="users-list">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.UserName">@user.UserName</option>
+                }
+            </datalist>
+        </div>
     </div>
     <div class="form-group">
-        @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles), new { @class = "form-control" })
+        @Html.LabelFor(m => m.SelectedRole, new { @class = "col-md-2 control-label" })
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+            @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles), new { @class = "form-control" })
+        </div>
     </div>
-    <button type="submit" class="btn btn-default">Add</button>
+    <div class="form-group">
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-default">Add</button>
+        </div>
+    </div>
 }
