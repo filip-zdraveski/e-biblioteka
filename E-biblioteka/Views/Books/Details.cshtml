@@ -32,14 +32,12 @@
         <div id="contentHead">
             <h1 style="margin:20px; padding-top:20px">
                 <span itemprop="name">@Model.Name</span>
-
             </h1>
-            <p style="margin:20px; padding-top:5px">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId }, new { })</p>
+            <p style="margin:20px; padding-top:5px; margin-left: 30px;">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId }, new { })</p>
             <div id="container" style="margin-bottom:20px;">
                 <div class="row">
                     <div class="col-lg-2">
                         <img id="modalImage" style="width: 200px; height: 250px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />
-
                     </div>
                     <div class="col-lg-8" style="margin-left: 100px;">
                         <p class="text-left">Genre: @Model.Genre</p>
