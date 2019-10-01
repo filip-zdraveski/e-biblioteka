@@ -251,7 +251,40 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public ActionResult UpVote(long id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            var rating = book.Rating;
+            rating=rating+0.1;
+            book.Rating = rating;
+            db.SaveChanges();
+            return View("Details", book);
+        }
+        public ActionResult DownVote(long id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            var rating = book.Rating;
+            rating = rating - 0.1;
+            book.Rating = rating;
+            db.SaveChanges();
+            return View("Details", book);
+        }
         [Authorize(Roles = "Member, Moderator")]
         public ActionResult Order(long? id)
         {

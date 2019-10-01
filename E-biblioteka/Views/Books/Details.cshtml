@@ -18,6 +18,10 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    .checked {
+        color: orange;
+    }
 </style>
 <div class="container">
     <div id="contentHead">
@@ -52,6 +56,27 @@
             <div class="col-lg-8">
                 <p class="text-left">Genre: @Model.Genre</p>
                 <p class="text-left">Year: @Model.Year</p>
+                <p>
+                    Rating:
+                    @for (var i = 1; i <= Math.Floor(Model.Rating); i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
+
+                    @for (var i = 1; i <= 5 - Math.Floor(Model.Rating); i++)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+                </p>
+                <p>
+                    @if (User.IsInRole("Member"))
+                    {
+                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+                    }
+
+                </p>
+
                 <p class="text-left">@Model.Description</p>
             </div>
         </div>
