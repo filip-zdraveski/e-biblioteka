@@ -267,6 +267,17 @@ namespace E_biblioteka.Controllers
             return View(book);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Member, Moderator")]
+        public ActionResult Order(long? id, string unused)
+        {
+            Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
+            book.InStock -= 1;
+            db.Entry(book).Property(b => b.InStock).IsModified = true;
+            db.SaveChanges();
+            return View(book);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
