@@ -6,27 +6,27 @@
 <h2 style="margin-bottom: 40px;">Add user to role:</h2>
 @using (Html.BeginForm("AddUserToRole", "Account"))
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div>
-            <input list="users-list" class="form-control" name="UserName" />
-            <datalist id="users-list">
-                @foreach (var user in Model.Users)
-                {
-                    <option value="@user.UserName">@user.UserName</option>
-                }
-            </datalist>
-        </div>
+<div class="form-group">
+    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+    <div>
+        <input list="users-list" class="form-control" name="UserName" />
+        <datalist id="users-list">
+            @foreach (var user in Model.Users)
+            {
+            <option value="@user.UserName">@user.UserName</option>
+            }
+        </datalist>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.SelectedRole, new { @class = "col-md-2 control-label" })
-        <div style="margin-top: 20px; margin-bottom: 20px;">
-            @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles), new { @class = "form-control" })
-        </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.SelectedRole, new { @class = "col-md-2 control-label" })
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        @Html.DropDownListFor(m => m.SelectedRole, new SelectList(Model.Roles), new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        <div class="col-md-2" style="margin-top: 10px;">
-            <button type="submit" class="btn btn-primary text-center">Add</button>
-        </div>
+</div>
+<div class="form-group">
+    <div class="col-md-2" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary text-center">Add</button>
     </div>
+</div>
 }

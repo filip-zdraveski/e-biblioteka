@@ -4,26 +4,11 @@
     ViewBag.Title = "Details";
 }
 
-<style>
-    body {
-        background-color: lightgray;
-    }
-
-    #con {
-        background-color: white;
-        border: 1px solid black;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 20px;
-        width: 1000px;
-        padding-bottom: 20px;
-    }
-</style>
 <div class="container" id="con">
     <div class="row">
         <h1 style="margin-left:30px;">@Model.Name</h1>
         <div class="col-lg-3" style="margin-bottom:20px; margin-top: 30px;">
-            <img id="modalImage" style="width: 200px; height: 280px; margin-left: 20px;" src="@Model.ImageUrl" alt="@Model.Name  " />
+            <img id="modalImage" style="width: 200px; height: 280px; margin-left: 20px;" src="@Model.ImageUrl" alt="@Model.Name" />
             <div class="text-center" style="margin-top: 20px;">
                 @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
@@ -47,7 +32,6 @@
                         </li>
                     }
                 </ul>
-
             }
         </div>
     </div>
@@ -69,6 +53,22 @@
 @section styles {
     <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        #con {
+            background-color: white;
+            border: 1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            width: 1000px;
+            padding-bottom: 20px;
+        }
+    </style>
 }
 
 @section scripts {

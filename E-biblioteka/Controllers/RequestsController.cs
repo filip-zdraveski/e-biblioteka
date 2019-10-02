@@ -62,39 +62,6 @@ namespace E_biblioteka.Controllers
             return View(request);
         }
 
-        // GET: Requests/Edit/5
-        [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Request request = db.Requests.Find(id);
-            if (request == null)
-            {
-                return HttpNotFound();
-            }
-            return View(request);
-        }
-
-        // POST: Requests/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit([Bind(Include = "RequestId,Title,AuthorsName,Comment")] Request request)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(request).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(request);
-        }
-
         // GET: Requests/Delete/5
         [Authorize(Roles = "Administrator, Employee")]
         public ActionResult Delete(long? id)

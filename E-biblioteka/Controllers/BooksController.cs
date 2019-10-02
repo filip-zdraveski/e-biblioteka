@@ -148,7 +148,7 @@ namespace E_biblioteka.Controllers
                 };
 
                 Author author = db.Authors.Find(model.SelectedAuthorId);
-                if (author == null) // mozhe nema da ni treba ova voopshto
+                if (author == null)
                 {
                     model = new AddAuthorToBook()
                     {
@@ -160,7 +160,7 @@ namespace E_biblioteka.Controllers
 
                     return View(model);
                 }
-                book.Author = author; 
+                book.Author = author;
 
                 db.Books.Add(book);
                 db.SaveChanges();
@@ -317,12 +317,18 @@ namespace E_biblioteka.Controllers
         }
 
         [Authorize(Roles = "Member, Moderator")]
-        public ActionResult Order(long? id)
+        public ActionResult Order(long? id, int page, string orderBy, string search, string bookGenre)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
+            ViewBag.BookGenre = bookGenre;
+
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             if (book == null)
             {
@@ -331,24 +337,22 @@ namespace E_biblioteka.Controllers
             return View(book);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Order")]
         [Authorize(Roles = "Member, Moderator")]
-        public ActionResult Order(long? id, string unused)
+        public ActionResult OrderConfirmed(long? id, int page, string orderBy, string search, string bookGenre)
         {
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             book.InStock -= 1;
             db.Entry(book).Property(b => b.InStock).IsModified = true;
             db.SaveChanges();
-            return RedirectToAction("Index", "Books");
+            return RedirectToAction("Index", "Books", new { page, orderBy, search, bookGenre });
         }
 
         [Authorize(Roles = "Member, Moderator")]
         public ActionResult AddPostToBook(int id)
         {
-            return RedirectToAction("Create", "Posts", new { BookId = id});
+            return RedirectToAction("Create", "Posts", new { BookId = id });
         }
-
-       
 
         protected override void Dispose(bool disposing)
         {

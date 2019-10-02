@@ -15,6 +15,6 @@ namespace E_biblioteka.Models
         public static List<string> ListRoles()
         {
             return new List<string> { Roles.Administrator, Roles.Employee, Roles.Moderator, Roles.Member };
-        } 
+        }
     }
 }

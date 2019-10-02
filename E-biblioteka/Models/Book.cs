@@ -20,7 +20,7 @@ namespace E_biblioteka.Models
         public string Genre { get; set; }
         [Required]
         public int Year { get; set; }
-        [Range(1,5, ErrorMessage = "Rating must be between 1 and 5")]
+        [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]
         public double Rating { get; set; }
         public string Description { get; set; }
         [Display(Name = "Image")]

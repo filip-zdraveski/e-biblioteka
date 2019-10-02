@@ -3,16 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<style>
-    body {
-        background-image: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
-        background-size: cover;
-        padding-bottom: 0;
-    }
-</style>
-
 <div class="container-fluid" style="display: inline">
     <div class="row">
         <div class="col-lg-4">
@@ -66,6 +56,17 @@
     </div>
 </div>
 
+@section styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-image: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
+            background-size: cover;
+            padding-bottom: 0;
+        }
+    </style>
+}
 
 @section scripts {
     <script type="text/javascript" src="@Href("~/Scripts/bootstrap.js")"></script>

@@ -10,6 +10,6 @@ namespace E_biblioteka.Models
     {
         public IPagedList<Book> Books { get; set; }
         public List<string> Genres { get; set; }
-        public string BookGenre { get; set; }        
+        public string BookGenre { get; set; }
     }
 }

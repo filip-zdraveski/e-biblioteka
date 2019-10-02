@@ -7,7 +7,7 @@
 <div class="container">
     <div id="contentHead">
         <h1 style="margin-left: 20px; margin-top: 30px;">@Model.Name</h1>
-        <p style="margin:20px; margin-left: 30px;">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId, page = 1 }, new { })</p>
+        <p style="margin: 20px; margin-left: 30px;">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId, page = 1 }, new { })</p>
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-lg-3">
                 <img id="modalImage" style="width: 200px; height: 280px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />
@@ -15,10 +15,9 @@
                     @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
                     {
                         <span>Rate:</span>
-                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })" style="margin-right:10px; margin-left:5px;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true" style="color:forestgreen"></i></a>
-                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true" style="color:red"></i></a>
+                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })" style="margin-right:10px; margin-left:5px;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true" style="color: forestgreen"></i></a>
+                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true" style="color: red"></i></a>
                     }
-
                 </p>
                 <div class="text-center" style="margin-top: 20px; margin-left: 30px;">
 
@@ -26,7 +25,7 @@
                     {
                         if (Model.InStock > 0)
                         {
-                            <a href="@Url.Action("Order", "Books", new { id = Model.BookId })" class="btn btn-warning" style="margin-right: 5px;">
+                            <a href="@Url.Action("Order", "Books", new { id = Model.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-warning" style="margin-right: 5px;">
                                 <span><i class="fa fa-shopping-cart"></i> Order</span>
                             </a>
                         }
@@ -67,8 +66,6 @@
                     }
                     (@Model.Rating out of 5)
                 </p>
-
-
                 <p class="text-left">@Model.Description</p>
             </div>
         </div>
@@ -76,13 +73,13 @@
 </div>
 <div class="container" style="background-color: white; width: 87.7%; margin-left: 85px; margin-top: 20px; border: solid 1px">
     <h2>Book Reviews</h2>
- 
+
     <table class="table">
         <tr>
             <th>
                 Title
             </th>
-            
+
             <th>
                 Content
             </th>
@@ -95,7 +92,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-              
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>

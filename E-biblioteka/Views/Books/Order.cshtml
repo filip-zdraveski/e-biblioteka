@@ -28,7 +28,7 @@
                         <button type="button" class="btn btn-default disabled">Out of Stock</button>
                     }
                 }
-                <button type="button" class="btn btn-danger" onclick="window.location='/Books/Index'">Back to list</button>
+                <a href="@Url.Action("Index", "Books", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-danger">Back to list</a>
             </div>
         </div>
     </div>

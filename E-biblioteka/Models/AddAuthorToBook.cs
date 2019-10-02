@@ -12,7 +12,7 @@ namespace E_biblioteka.Models
         public List<Author> Authors { get; set; }
         [Display(Name = "Book")]
         public long SelectedBookId { get; set; }
-        [Display (Name = "Author Id")]
+        [Display(Name = "Author Id")]
         public long SelectedAuthorId { get; set; }
 
         public AddAuthorToBook()

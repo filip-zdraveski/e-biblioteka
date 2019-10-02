@@ -75,7 +75,7 @@ namespace E_biblioteka.Models
         [Required]
         [StringLength(64, ErrorMessage = "Your username must not exceed 64 characters!")]
         [Display(Name = "Username")]
-        public string UserName{ get; set; }
+        public string UserName { get; set; }
 
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
