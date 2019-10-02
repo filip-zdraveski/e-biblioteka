@@ -37,11 +37,12 @@
                 <td>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
-                        @Html.ActionLink("Accept", "CreateFromRequest", "Books", new { Title = item.Title, AuthorsName = item.AuthorsName, RequestId = item.RequestId }, null)
+                        <a href="@Url.Action("CreateFromRequest", "Books", new { Title = item.Title, AuthorsName = item.AuthorsName, RequestId = item.RequestId }, null)" class="btn btn-success">Accept</a>
                         @:&nbsp;
-                        @Html.ActionLink("Decline", "Delete", new { id = item.RequestId })
+                        <a href="@Url.Action("Delete", "Requests", new { id = item.RequestId })" class="btn btn-danger">Decline</a>
                         @:&nbsp;
                     }
+                    <a href="@Url.Action("Details", "Requests", new { id = item.RequestId })" class="btn btn-default">Details</a>
                 </td>
             </tr>
         }

@@ -4,39 +4,22 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<br>
+<h2>Request details</h2>
+<hr />
 
-<div>
-    <h4>Request</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorsName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorsName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
-    </dl>
+<div class="container" style="margin-top: 40px;">
+    <div class="row">
+        <div class="col-lg-2" style="width: 10%;">
+            <p style="font-weight: bold;">Book title</p>
+            <p style="font-weight: bold;">Book author</p>
+            <p style="font-weight: bold;">Comment</p>
+        </div>
+        <div class="col-lg-4" style="width: 40%;">
+            <p>@Model.Title</p>
+            <p>@Model.AuthorsName</p>
+            <p style="width: 500px; word-wrap: break-word;">@Model.Comment</p>
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Requests")" class="btn btn-default" style="margin-top: 15px;">Back to list</a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
