@@ -11,26 +11,36 @@
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-lg-3">
                 <img id="modalImage" style="width: 200px; height: 280px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />
-                <div class="text-center" style="margin-top: 20px; margin-left: 30px;">
+                <p style="margin-top:10px; margin-left:40px;">
                     @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-{
-    if (Model.InStock > 0)
-    {
+                    {
+                        <span>Rate:</span>
+                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })" style="margin-right:7px; margin-left:10px;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true" style="color:forestgreen"></i></a>
+                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true" style="color:red"></i></a>
+                    }
+
+                </p>
+                <div class="text-center" style="margin-top: 20px; margin-left: 30px;">
+
+                    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                    {
+                        if (Model.InStock > 0)
+                        {
                             <a href="@Url.Action("Order", "Books", new { id = Model.BookId })" class="btn btn-warning" style="margin-right: 5px;">
                                 <span><i class="fa fa-shopping-cart"></i> Order</span>
                             </a>
-    }
-    else
-    {
+                        }
+                        else
+                        {
                             <button type="button" class="btn btn-warning disabled">
                                 <span><i class="fa fa-shopping-cart"></i> Order</span>
                             </button>
-    }
-}
+                        }
+                    }
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-{
+                    {
                         <a href="@Url.Action("Edit", "Books", new { id = Model.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
-}
+                    }
                     <a href="@Url.Action("Index", "Books", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-default">Back to list</a>
                 </div>
             </div>
@@ -49,14 +59,7 @@
                         <span class="fa fa-star"></span>
 }
                 </p>
-                <p>
-                    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-                    {
-                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
-                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
-                    }
-
-                </p>
+                
 
                 <p class="text-left">@Model.Description</p>
             </div>
