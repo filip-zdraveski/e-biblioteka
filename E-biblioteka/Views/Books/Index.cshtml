@@ -19,108 +19,119 @@
     }
 }
 
-<div class="container-fluid">
-    <div class="row text-center">
-        <h2>Books</h2>
-    </div>
-    <div class="row" style="margin-bottom: 50px;">
-        <span style="margin-left: 100px;">
-            @if (User.IsInRole("Administrator"))
-            {
-                <a href="@Url.Action("Create", "Books")" class="btn btn-primary">+ Add a book</a>
-            }
-        </span>
-        <span>
-            @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
-            {
-                <a href="@Url.Action("Create", "Requests")" class="btn btn-primary">+ Request a book</a>
-            }
-        </span>
-        <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
-            <div class="form-inline" style="margin-left: 80px;">
-                <div class="form-group" style="width: 100%;">
-                    <label for="search"><i class="fa fa-search"></i></label>
-                    @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
-                </div>
+    <div class="container-fluid">
+        <div class="row text-center">
+            <h2>Books</h2>
+        </div>
+        <div class="row" style="margin-bottom: 50px;">
+            <span style="margin-left: 100px;">
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a href="@Url.Action("Create", "Books")" class="btn btn-primary">+ Add a book</a>
+                }
+            </span>
+            <span>
+                @if (User.IsInRole("Member") || User.IsInRole("Moderator") || User.IsInRole("Employee"))
+                {
+                    <a href="@Url.Action("Create", "Requests")" class="btn btn-primary">+ Request a book</a>
+                }
+            </span>
+            <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
+                <div class="form-inline" style="margin-left: 80px;">
+                    <div class="form-group" style="width: 100%;">
+                        <label for="search"><i class="fa fa-search"></i></label>
+                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
+                    </div>
 
-                <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
-                    <label for="order-list"><i class="fa fa-sort"></i></label>
-                    <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
-                        <option value="">--Order By--</option>
-                        <option value="title-ascending">Title (A-Z)</option>
-                        <option value="title-descending">Title (Z-A)</option>
-                        <option value="rating-descending">Top Rated</option>
-                        <option value="year-descending">Publish Date (newest)</option>
-                        <option value="year-ascending">Publish Date (oldest)</option>
-                    </select>
-                    <label for="genres-list"><i class="fa fa-sort"></i></label>
-                    <select id="genres-list" class="form-control" style="width: 185px;">
-                        <option value="">--All Genres--</option>
-                        @foreach (var genre in Model.Genres)
-                        {
-                            <option value="@genre">@genre</option>
-                        }
-                    </select>
+                    <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
+                        <label for="order-list"><i class="fa fa-sort"></i></label>
+                        <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
+                            <option value="">--Order By--</option>
+                            <option value="title-ascending">Title (A-Z)</option>
+                            <option value="title-descending">Title (Z-A)</option>
+                            <option value="rating-descending">Top Rated</option>
+                            <option value="year-descending">Publish Date (newest)</option>
+                            <option value="year-ascending">Publish Date (oldest)</option>
+                        </select>
+                        <label for="genres-list"><i class="fa fa-sort"></i></label>
+                        <select id="genres-list" class="form-control" style="width: 185px;">
+                            <option value="">--All Genres--</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre">@genre</option>
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid text-center">
-        @foreach (var item in Model.Books)
+        @if (Model.Books.Count > 0)
         {
-            <div class="card bg-light col-lg-4 mb-2">
-                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Books/Details/@item.BookId@filters'" />
-                <div class="card-body">
-                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre }, new { })</h5>
-                    <p>
-                        by @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId, page = 1 }, new { })
-                    </p>
-                    <p>
-                        @for (var i = 1; i <= Math.Floor(item.Rating); i++)
-                        {
-                            <span class="fa fa-star checked"></span>
-                        }
+            <div class="container-fluid text-center">
+                @foreach (var item in Model.Books)
+                {
+                    <div class="card bg-light col-lg-4 mb-2">
+                        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Books/Details/@item.BookId@filters'" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre }, new { })</h5>
+                            <p>
+                                by @Html.ActionLink(item.Author.Name, "Details", "Authors", new { id = item.Author.AuthorId, page = 1 }, new { })
+                            </p>
+                            <p>
+                                @for (var i = 1; i <= Math.Floor(item.Rating); i++)
+                                {
+                                    <span class="fa fa-star checked"></span>
+                                }
 
-                        @for (var i = 1; i <= 5 - Math.Floor(item.Rating); i++)
-                        {
-                            <span class="fa fa-star"></span>
-                        }
-                    </p>
-                    <p>
-                        @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-                        {
-                            if (item.InStock > 0)
-                            {
-                                <a href="@Url.Action("Order", "Books", new { id = item.BookId })" class="btn btn-default" style="margin-right: 5px;">
-                                    <span><i class="fa fa-shopping-cart"></i> Order</span>
-                                </a>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-default disabled">
-                                    <span><i class="fa fa-shopping-cart"></i> Order</span>
-                                </button>
-                            }
-                        }
-                        @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-                        {
-                            <a href="@Url.Action("Edit", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-info" style="margin-right: 5px">Edit</a>
-                        }
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <a href="@Url.Action("Delete", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-danger">Delete</a>
-                        }
-                    </p>
+                                @for (var i = 1; i <= 5 - Math.Floor(item.Rating); i++)
+                                {
+                                    <span class="fa fa-star"></span>
+                                }
+                            </p>
+                            <p>
+                                @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                                {
+                                    if (item.InStock > 0)
+                                    {
+                                        <a href="@Url.Action("Order", "Books", new { id = item.BookId })" class="btn btn-default" style="margin-right: 5px;">
+                                            <span><i class="fa fa-shopping-cart"></i> Order</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-default disabled">
+                                            <span><i class="fa fa-shopping-cart"></i> Order</span>
+                                        </button>
+                                    }
+                                }
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                                {
+                                    <a href="@Url.Action("Edit", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-info" style="margin-right: 5px">Edit</a>
+                                }
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a href="@Url.Action("Delete", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-danger">Delete</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                    @Html.PagedListPager(Model.Books, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre }))
                 </div>
             </div>
         }
+        else
+        {
+            <div class="row">
+                <h4 class="alert alert-danger text-center">
+                    <span class="text-danger">No matching results!</span>
+                </h4>
+            </div>
+        }
     </div>
-    <div class="row">
-        <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
-            @Html.PagedListPager(Model.Books, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre }))
-        </div>
-    </div>
-</div>
 
 @section styles{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -151,6 +162,11 @@
             var orderBy = $("#order-list").val();
             var search = $("#search").val();
             var bookGenre = $("#genres-list").val();
+            var booksCount = @Model.Books.Count;
+
+            if (booksCount == 0) {
+                $("#order-list, #genres-list").attr("disabled", "true");
+            }
 
             $("#search").on("change", function () {
                 search = $("#search").val();
