@@ -246,6 +246,7 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BooksViewModel.cs" />
+    <Compile Include="Models\Forum\AddPostToBook.cs" />
     <Compile Include="Models\Forum\NewPost.cs" />
     <Compile Include="Models\Forum\Post.cs" />
     <Compile Include="Models\IdentityModels.cs" />

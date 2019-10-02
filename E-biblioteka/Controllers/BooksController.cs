@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using E_biblioteka.Models;
+using E_biblioteka.Models.Forum;
 using PagedList;
 
 namespace E_biblioteka.Controllers
@@ -272,6 +273,7 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { page, orderBy, search, bookGenre });
         }
+
         public ActionResult UpVote(long? id)
         {
             if (id == null)
@@ -289,6 +291,7 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return View("Details", book);
         }
+
         public ActionResult DownVote(long? id)
         {
             if (id == null)
@@ -306,6 +309,7 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return View("Details", book);
         }
+
         [Authorize(Roles = "Member, Moderator")]
         public ActionResult Order(long? id)
         {
@@ -331,6 +335,13 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Books");
         }
+
+        public ActionResult AddPostToBook(int id)
+        {
+            return RedirectToAction("Create", "Posts", new { BookId = id});
+        }
+
+       
 
         protected override void Dispose(bool disposing)
         {

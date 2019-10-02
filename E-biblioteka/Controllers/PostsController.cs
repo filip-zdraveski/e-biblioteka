@@ -46,14 +46,25 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Posts/Create
-        public ActionResult Create()
+        public ActionResult Create(int? BookId)
         {
+            List<Book> Books = new List<Book>();
+
+            if (BookId != null)
+            {
+                Books.Add(db.Books.Find(BookId));
+            }
+            else
+            {
+                Books = db.Books.ToList();
+            }
             NewPost model = new NewPost();
             {
-                model.Books = db.Books.ToList();
+                model.Books = Books;
             }
             return View(model);
         }
+
 
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -126,7 +137,7 @@ namespace E_biblioteka.Controllers
                 //ChangePost.User = User;
                 //ChangePost.UserId = post.UserId;
                 //ChangePost.BookId = post.BookId;
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -176,19 +187,19 @@ namespace E_biblioteka.Controllers
             base.Dispose(disposing);
         }
 
-        private Boolean  IsAuthorized(int id)
+        private Boolean IsAuthorized(int id)
         {
             int PostId = id;
             string UserId = User.Identity.GetUserId();
             Post post = db.Posts.Find(PostId);
             ApplicationUser user = db.Users.Find(UserId);
             string RoleId = GetUserRole(UserId);
-            if ( RoleId == "1" || RoleId == "3" || post.UserId == UserId)
+            if (RoleId == "1" || RoleId == "3" || post.UserId == UserId)
             {
                 return true;
             }
             else
-            { 
+            {
                 return false;
             }
         }
@@ -200,7 +211,7 @@ namespace E_biblioteka.Controllers
                 string roleId = user.Roles.ToList().FirstOrDefault(m => m.UserId == UserId).RoleId;//1,3
                 return roleId;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "0";
             }
