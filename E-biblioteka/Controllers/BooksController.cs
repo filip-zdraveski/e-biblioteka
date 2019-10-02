@@ -274,6 +274,7 @@ namespace E_biblioteka.Controllers
             return RedirectToAction("Index", new { page, orderBy, search, bookGenre });
         }
 
+        [Authorize(Roles = "Member, Moderator")]
         public ActionResult UpVote(long? id)
         {
             if (id == null)
@@ -285,13 +286,17 @@ namespace E_biblioteka.Controllers
             {
                 return HttpNotFound();
             }
-            var rating = book.Rating;
-            rating=rating+0.1;
-            book.Rating = rating;
-            db.SaveChanges();
+            if (book.Rating < 5)
+            {
+                var rating = book.Rating;
+                rating = rating + 0.1;
+                book.Rating = rating;
+                db.SaveChanges();
+            }
             return View("Details", book);
         }
 
+        [Authorize(Roles = "Member, Moderator")]
         public ActionResult DownVote(long? id)
         {
             if (id == null)
@@ -303,10 +308,13 @@ namespace E_biblioteka.Controllers
             {
                 return HttpNotFound();
             }
-            var rating = book.Rating;
-            rating = rating - 0.1;
-            book.Rating = rating;
-            db.SaveChanges();
+            if (book.Rating > 1)
+            {
+                var rating = book.Rating;
+                rating = rating - 0.1;
+                book.Rating = rating;
+                db.SaveChanges();
+            }
             return View("Details", book);
         }
 
