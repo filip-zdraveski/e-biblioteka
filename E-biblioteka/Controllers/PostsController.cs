@@ -176,7 +176,7 @@ namespace E_biblioteka.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Details", "Books", new { id , page = 1 });
+            return RedirectToAction("Details", "Books", new { id = post.BookId , page = 1 });
         }
 
         protected override void Dispose(bool disposing)
