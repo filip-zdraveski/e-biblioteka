@@ -63,17 +63,27 @@ namespace E_biblioteka.Controllers
                 Genres = genreQuery.Distinct().ToList(),
                 Books = books.ToPagedList(pageNumber, pageSize)
             };
+            if (page == null)
+                ViewBag.Page = pageNumber;
+            else
+                ViewBag.Page = page;
             ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
+            ViewBag.BookGenre = bookGenre;
             return View(booksVM);
         }
 
         // GET: Books/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id, int page, string orderBy, string search, string bookGenre)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
+            ViewBag.BookGenre = bookGenre;
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             if (book == null)
             {
@@ -159,12 +169,17 @@ namespace E_biblioteka.Controllers
 
         // GET: Books/Edit/5
         [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int page, string orderBy, string search, string bookGenre)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
+            ViewBag.BookGenre = bookGenre;
 
             Book book = db.Books.Find(id);
             if (book == null)
@@ -188,7 +203,7 @@ namespace E_biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit(AddAuthorToBook model)
+        public ActionResult Edit(AddAuthorToBook model, int page, string orderBy, string search, string bookGenre)
         {
             if (ModelState.IsValid)
             {
@@ -219,19 +234,25 @@ namespace E_biblioteka.Controllers
                 book.Author = author;
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { page, orderBy, search, bookGenre });
             }
             return View(model);
         }
 
         // GET: Books/Delete/5
         [Authorize(Roles = "Administrator")]
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(long? id, int page, string orderBy, string search, string bookGenre)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
+            ViewBag.BookGenre = bookGenre;
+
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             if (book == null)
             {
@@ -244,12 +265,12 @@ namespace E_biblioteka.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(long id, int page, string orderBy, string search, string bookGenre)
         {
             Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.BookId == id);
             db.Books.Remove(book);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page, orderBy, search, bookGenre });
         }
         public ActionResult UpVote(long id)
         {

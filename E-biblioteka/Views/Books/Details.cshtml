@@ -48,9 +48,9 @@
                     }
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
-                        <a href="@Url.Action("Edit", "Books", new { id = Model.BookId })" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
+                        <a href="@Url.Action("Edit", "Books", new { id = Model.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
                     }
-                    <a href="@Url.Action("Index", "Books")" class="btn btn-default">Back to list</a>
+                    <a href="@Url.Action("Index", "Books", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-default">Back to list</a>
                 </div>
             </div>
             <div class="col-lg-8">

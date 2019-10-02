@@ -41,18 +41,25 @@ namespace E_biblioteka.Controllers
                     model = authors.OrderBy(a => a.Name);
                     break;
             }
-
+            if (page == null)
+                ViewBag.Page = pageNumber;
+            else
+                ViewBag.Page = page;
             ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
             return View(model.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Authors/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id, int page, string orderBy, string search)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
             Author author = db.Authors.Include(a => a.Books).FirstOrDefault(a => a.AuthorId == id);
             if (author == null)
             {
@@ -88,12 +95,15 @@ namespace E_biblioteka.Controllers
 
         // GET: Authors/Edit/5
         [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(long? id, int page, string orderBy, string search)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
             Author author = db.Authors.Find(id);
             if (author == null)
             {
@@ -108,25 +118,28 @@ namespace E_biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Employee")]
-        public ActionResult Edit([Bind(Include = "AuthorId,Name,ImageUrl,Description")] Author author)
+        public ActionResult Edit([Bind(Include = "AuthorId,Name,ImageUrl,Description")] Author author, int page, string orderBy, string search)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { page, orderBy, search });
             }
             return View(author);
         }
 
         // GET: Authors/Delete/5
         [Authorize(Roles = "Administrator")]
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(long? id, int page, string orderBy, string search)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Page = page;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Search = search;
             Author author = db.Authors.Find(id);
             if (author == null)
             {
@@ -139,12 +152,12 @@ namespace E_biblioteka.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(long id, int page, string orderBy, string search)
         {
             Author author = db.Authors.Find(id);
             db.Authors.Remove(author);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page, orderBy, search });
         }
 
         protected override void Dispose(bool disposing)

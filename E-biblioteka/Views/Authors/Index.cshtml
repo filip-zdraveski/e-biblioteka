@@ -4,6 +4,16 @@
 
 @{
     ViewBag.Title = "Index";
+    var filters = "?page=" + ViewBag.Page;
+    if (ViewBag.OrderBy != null) {
+        filters += "&orderBy=" + ViewBag.OrderBy;
+    }
+    if (ViewBag.Search != null) {
+        filters += "&search=" + ViewBag.Search;
+    }
+    if (ViewBag.BookGenre != null) {
+        filters += "&bookGenre=" + ViewBag.BookGenre;
+    }
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -25,7 +35,7 @@
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
             <div class="form-inline" style="margin-left: 80px;">
-                @using (Html.BeginForm("Index", "Authors", FormMethod.Get))
+                @using (Html.BeginForm("Index", "Authors", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }, FormMethod.Get))
                 {
                     <div class="form-group">
                         <label for="search"><i class="fa fa-search"></i></label>
@@ -46,17 +56,17 @@
         @foreach (var item in Model)
         {
             <div class="card bg-light col-lg-4 mb-2">
-                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Authors/Details/@item.AuthorId'" />
+                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Authors/Details/@item.AuthorId@filters'" />
                 <div class="card-body">
-                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId }, new { })</h5>
+                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }, new { })</h5>
                     <p>
                         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                         {
-                            <a href="@Url.Action("Edit", "Authors", new { id = item.AuthorId })" class="btn btn-info">Edit</a>
+                            <a href="@Url.Action("Edit", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-info">Edit</a>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
-                            <a href="@Url.Action("Delete", "Authors", new { id = item.AuthorId })" class="btn btn-danger">Delete</a>
+                            <a href="@Url.Action("Delete", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-danger">Delete</a>
                         }
                     </p>
                 </div>
@@ -65,7 +75,7 @@
     </div>
     <div class="row">
         <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy }))
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }))
         </div>
     </div>
 </div>

@@ -14,13 +14,13 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-lg-3 text-center">
             <img src="@Model.ImageUrl" style="width: 200px; height: 280px;" />
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre }))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-actions no-color text-center" style="margin-top: 20px;">
                     <input type="submit" value="Delete" class="btn btn-danger" style="margin-right: 5px" />
-                    <a href="@Url.Action("Index", "Books")" class="btn btn-default"> Back to list </a>
+                    <a href="@Url.Action("Index", "Books", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre } )" class="btn btn-default"> Back to list </a>
                 </div>
             }
         </div>

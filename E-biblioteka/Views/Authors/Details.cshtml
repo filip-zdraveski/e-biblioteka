@@ -28,9 +28,9 @@
             <div class="text-center" style="margin-top: 20px;">
                 @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
-                    <a href="@Url.Action("Edit", "Authors", new { id = Model.AuthorId })" class="btn btn-primary" style="margin-right: 5px; margin-left: 20px;">Edit</a>
+                    <a href="@Url.Action("Edit", "Authors", new { id = Model.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-primary" style="margin-right: 5px; margin-left: 20px;">Edit</a>
                 }
-                <a href="@Url.Action("Index", "Authors")" class="btn btn-default">Back to list</a>
+                <a href="@Url.Action("Index", "Authors", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-default">Back to list</a>
             </div>
         </div>
         <div class="col-lg-8 text-left" style="margin-left: 30px; margin-top: 30px;">
@@ -44,7 +44,7 @@
                     @for (int i = 0; i < Model.Books.Count; i++)
                     {
                         <li>
-                            @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId }, new { })
+                            @Html.ActionLink(Model.Books[i].Name, "Details", "Books", new { id = Model.Books[i].BookId, page = 1 }, new { })
                         </li>
                     }
                 </ul>
