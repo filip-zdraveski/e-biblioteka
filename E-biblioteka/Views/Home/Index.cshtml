@@ -35,7 +35,7 @@
                     @foreach (var item in Model.Skip(1))
                     {
                         <div class="item">
-                            <a href="/Books/Details/@item.BookId">
+                            <a href="/Books/Details/@item.BookId?page=1">
                                 <img src="@item.ImageUrl" alt="@item.Name" class="img-responsive img-thumbnail center-block" style="margin: auto; width: 100%; height: 550px;" />
                             </a>
                         </div>
