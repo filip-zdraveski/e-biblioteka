@@ -19,19 +19,19 @@
     }
 }
 
-<div class="container-fluid">
-    <div class="row text-center">
-        <h2>Authors</h2>
-    </div>
-    <div class="row" style="margin-bottom: 50px;">
-        <span style="margin-left: 100px;">
-            @if (User.IsInRole("Administrator"))
-            {
-                <a href="@Url.Action("Create", "Authors")" class="btn btn-primary">+ Add an author</a>
-            }
-        </span>
-        <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
-            <div class="form-inline" style="margin-left: 80px;">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <h2>Authors</h2>
+        </div>
+        <div class="row" style="margin-bottom: 50px;">
+            <span style="margin-left: 100px;">
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a href="@Url.Action("Create", "Authors")" class="btn btn-primary">+ Add an author</a>
+                }
+            </span>
+            <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
+                <div class="form-inline" style="margin-left: 80px;">
                     <div class="form-group">
                         <label for="search"><i class="fa fa-search"></i></label>
                         @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 200px; margin-right: 15px", @placeholder = "Enter author name" })
@@ -42,37 +42,47 @@
                             <option value="name-descending">Name (Z-A)</option>
                         </select>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="container-fluid text-center">
-        @foreach (var item in Model)
+        @if (Model.Count > 0)
         {
-            <div class="card bg-light col-lg-4 mb-2">
-                <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Authors/Details/@item.AuthorId@filters'" />
-                <div class="card-body">
-                    <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }, new { })</h5>
-                    <p>
-                        @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-                        {
-                            <a href="@Url.Action("Edit", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-info">Edit</a>
-                        }
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <a href="@Url.Action("Delete", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-danger">Delete</a>
-                        }
-                    </p>
+            <div class="container-fluid text-center">
+                @foreach (var item in Model)
+                {
+                    <div class="card bg-light col-lg-4 mb-2">
+                        <img class="card-img-top" src="@item.ImageUrl" style="width: 200px; height: 280px; cursor: pointer;" onclick="window.location='/Authors/Details/@item.AuthorId@filters'" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.ActionLink(item.Name, "Details", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }, new { })</h5>
+                            <p>
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                                {
+                                    <a href="@Url.Action("Edit", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-info">Edit</a>
+                                }
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a href="@Url.Action("Delete", "Authors", new { id = item.AuthorId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search })" class="btn btn-danger">Delete</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }))
                 </div>
             </div>
         }
+        else
+        {
+            <div class="row">
+                <h4 class="alert alert-danger text-center">
+                    <span class="text-danger">No matching results!</span>
+                </h4>
+            </div>
+        }
     </div>
-    <div class="row">
-        <div class="pagination text-center col-sm-12 col-xs-12 col-md-12 col-lg-12">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }))
-        </div>
-    </div>
-</div>
 
 @section styles{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,6 +108,11 @@
 
             var orderBy = $("#order-list").val();
             var search = $("#search").val();
+            var authorsCount = @Model.Count;
+
+            if (authorsCount == 0) {
+                $("#order-list").attr("disabled", "true");
+            }
 
             $("#search").on("change", function () {
                 search = $("#search").val();
