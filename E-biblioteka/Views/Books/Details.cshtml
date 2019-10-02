@@ -71,17 +71,49 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <h2>Book reviews</h2>
-    <ul>
-        @foreach (var post in Model.Posts)
+<div class="container" style="background-color: white; width: 87.7%; margin-left: 85px; margin-top: 20px; border: solid 1px">
+    <h2>Book Reviews</h2>
+    <p>
+        <a href="@Url.Action("Create", "Posts")">Create new</a>
+
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            
+            <th>
+                Content
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Posts)
         {
-            <li>
-                @post.Title
-                @post.Content
-            </li>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Posts", new { id = item.Id })">Details</a>
+
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator") || ViewBag.UserId == item.UserId)
+                    {
+                        <span> | </span>
+                        <a href="@Url.Action("Edit", "Posts", new { id = item.Id })">Edit</a>
+                        <span> | </span>
+                        <a href="@Url.Action("Delete", "Posts", new { id = item.Id })">Delete</a>
+                    }
+                </td>
+            </tr>
         }
-    </ul>
+
+    </table>
 </div>
 
 <!-- The Modal -->
