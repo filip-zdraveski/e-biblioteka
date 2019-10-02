@@ -54,7 +54,6 @@ namespace E_biblioteka.Models
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
-        public DbSet<Member> Members { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Post> Posts { get; set; }
 

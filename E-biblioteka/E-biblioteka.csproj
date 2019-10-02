@@ -173,7 +173,6 @@
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +238,10 @@
     <Compile Include="Migrations\201910021307595_bookPosts.Designer.cs">
       <DependentUpon>201910021307595_bookPosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910021914247_modelChanges.cs" />
+    <Compile Include="Migrations\201910021914247_modelChanges.Designer.cs">
+      <DependentUpon>201910021914247_modelChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
@@ -250,9 +253,7 @@
     <Compile Include="Models\Forum\NewPost.cs" />
     <Compile Include="Models\Forum\Post.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -560,21 +561,14 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
-    <Content Include="Views\Members\Create.cshtml" />
-    <Content Include="Views\Members\Delete.cshtml" />
-    <Content Include="Views\Members\Details.cshtml" />
-    <Content Include="Views\Members\Edit.cshtml" />
-    <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Authors\Create.cshtml" />
     <Content Include="Views\Authors\Delete.cshtml" />
     <Content Include="Views\Authors\Details.cshtml" />
     <Content Include="Views\Authors\Edit.cshtml" />
     <Content Include="Views\Authors\Index.cshtml" />
     <Content Include="Views\Account\AddUserToRole.cshtml" />
-    <Content Include="Views\Requests\Create.cshtml" />
     <Content Include="Views\Requests\Delete.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
-    <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="Views\Books\CreateFromRequest.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
@@ -583,6 +577,7 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Books\Order.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Requests\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -645,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910021307595_bookPosts.resx">
       <DependentUpon>201910021307595_bookPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910021914247_modelChanges.resx">
+      <DependentUpon>201910021914247_modelChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -96,7 +96,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Requests/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -114,7 +114,7 @@ namespace E_biblioteka.Controllers
         // POST: Requests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee")]
         public ActionResult DeleteConfirmed(long id)
         {
             Request request = db.Requests.Find(id);

@@ -122,6 +122,8 @@ namespace E_biblioteka.Controllers
                 SelectedAuthorId = -1,
                 SelectedBookId = -1
             };
+            db.Requests.Remove(db.Requests.Find(request.RequestId));
+            db.SaveChanges();
             return View(model);
         }
 
@@ -288,9 +290,7 @@ namespace E_biblioteka.Controllers
             }
             if (book.Rating < 5)
             {
-                var rating = book.Rating;
-                rating = rating + 0.1;
-                book.Rating = rating;
+                book.Rating += 0.1;
                 db.SaveChanges();
             }
             return View("Details", book);
@@ -310,9 +310,7 @@ namespace E_biblioteka.Controllers
             }
             if (book.Rating > 1)
             {
-                var rating = book.Rating;
-                rating = rating - 0.1;
-                book.Rating = rating;
+                book.Rating -= 0.1;
                 db.SaveChanges();
             }
             return View("Details", book);

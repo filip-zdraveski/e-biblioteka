@@ -35,14 +35,13 @@
                     @Html.DisplayFor(modelItem => item.Comment)
                 </td>
                 <td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
                         @Html.ActionLink("Accept", "CreateFromRequest", "Books", new { Title = item.Title, AuthorsName = item.AuthorsName, RequestId = item.RequestId }, null)
                         @:&nbsp;
                         @Html.ActionLink("Decline", "Delete", new { id = item.RequestId })
                         @:&nbsp;
                     }
-                    @Html.ActionLink("Edit", "Edit", new { id = item.RequestId })
                 </td>
             </tr>
         }

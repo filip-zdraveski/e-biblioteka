@@ -30,7 +30,6 @@
                     <li style="margin-top: 2px;">@Html.ActionLink("Contact us", "Contact", "Home")</li>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
-                        <li style="margin-top: 2px;">@Html.ActionLink("Members", "Index", "Members")</li>
                         <li style="margin-top: 2px;">@Html.ActionLink("Requests", "Index", "Requests")</li>
                     }
                     @if (User.IsInRole("Administrator"))
