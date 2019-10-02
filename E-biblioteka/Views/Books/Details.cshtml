@@ -11,7 +11,17 @@
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-lg-3">
                 <img id="modalImage" style="width: 200px; height: 280px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />
+                <p style="margin-top:10px; margin-left:30px;" class="text-center">
+                    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                    {
+                        <span>Rate:</span>
+                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })" style="margin-right:10px; margin-left:5px;"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true" style="color:forestgreen"></i></a>
+                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down fa-2x" aria-hidden="true" style="color:red"></i></a>
+                    }
+
+                </p>
                 <div class="text-center" style="margin-top: 20px; margin-left: 30px;">
+
                     @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
                     {
                         if (Model.InStock > 0)
@@ -49,14 +59,7 @@
                         <span class="fa fa-star"></span>
                     }
                 </p>
-                <p>
-                    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-                    {
-                        <a href="@Url.Action("UpVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
-                        <a href="@Url.Action("DownVote", "Books", new { id = Model.BookId })"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
-                    }
-
-                </p>
+                
 
                 <p class="text-left">@Model.Description</p>
             </div>
