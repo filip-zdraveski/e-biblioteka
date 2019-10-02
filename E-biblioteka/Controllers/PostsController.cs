@@ -91,7 +91,8 @@ namespace E_biblioteka.Controllers
                 }
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Book book = db.Books.Find(model.BookId);
+                return RedirectToAction("Details", "Books", new { id = book.BookId, page = 1});
             }
             return View(post);
         }
@@ -139,7 +140,7 @@ namespace E_biblioteka.Controllers
                 //ChangePost.BookId = post.BookId;
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Books", new { id = post.BookId, page = 1 });
             }
             return View(post);
         }
@@ -175,7 +176,7 @@ namespace E_biblioteka.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Books", new { id , page = 1 });
         }
 
         protected override void Dispose(bool disposing)
