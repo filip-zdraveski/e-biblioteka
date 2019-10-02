@@ -22,7 +22,7 @@ namespace E_biblioteka.Controllers
             var pageSize = 9;
             var authors = from a in db.Authors
                           select a;
-            IOrderedQueryable < Author > model;
+            IOrderedQueryable<Author> model;
 
             if (!string.IsNullOrEmpty(search))
             {

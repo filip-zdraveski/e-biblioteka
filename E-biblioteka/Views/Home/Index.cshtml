@@ -9,6 +9,7 @@
     body {
         background-image: url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
         background-size: cover;
+        padding-bottom: 0;
     }
 </style>
 
@@ -29,14 +30,14 @@
                 <div class="carousel-inner text-center" style="margin: auto;">
                     <div class="item active" role="listbox">
                         <a href="/Books/Details/@Model.First().BookId?page=1">
-                            <img src="@Model.First().ImageUrl" alt="@Model.First().Name" class="img-responsive img-thumbnail center-block" style="margin: auto; width: 100%; height: 550px;" />
+                            <img src="@Model.First().ImageUrl" alt="@Model.First().Name" class="img-responsive img-thumbnail center-block" style="margin: auto; width: 100%; height: 500px;" />
                         </a>
                     </div>
                     @foreach (var item in Model.Skip(1))
                     {
                         <div class="item">
                             <a href="/Books/Details/@item.BookId?page=1">
-                                <img src="@item.ImageUrl" alt="@item.Name" class="img-responsive img-thumbnail center-block" style="margin: auto; width: 100%; height: 550px;" />
+                                <img src="@item.ImageUrl" alt="@item.Name" class="img-responsive img-thumbnail center-block" style="margin: auto; width: 100%; height: 500px;" />
                             </a>
                         </div>
                     }
@@ -53,7 +54,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-6" style="margin-top: 160px; background-color: wheat; opacity: 0.8; padding-bottom: 20px; border-radius: 40px; margin-left: 150px">
+        <div class="col-lg-6" style="margin-top: 140px; background-color: wheat; opacity: 0.8; padding-bottom: 20px; border-radius: 40px; margin-left: 150px">
             <div class="text-center" style="border-radius: 25px;">
                 <h1 style="font-size: 140px; color: darkred;">E-library</h1>
                 <h3 style="font-weight: bold; font-style: italic;">
