@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201909261757498_post.Designer.cs">
       <DependentUpon>201909261757498_post.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910021307595_bookPosts.cs" />
+    <Compile Include="Migrations\201910021307595_bookPosts.Designer.cs">
+      <DependentUpon>201910021307595_bookPosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAuthorToBook.cs" />
@@ -242,8 +246,6 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BooksViewModel.cs" />
-    <Compile Include="Models\Forum\AddCommentToPost.cs" />
-    <Compile Include="Models\Forum\Comment.cs" />
     <Compile Include="Models\Forum\NewPost.cs" />
     <Compile Include="Models\Forum\Post.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -639,6 +641,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909261757498_post.resx">
       <DependentUpon>201909261757498_post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910021307595_bookPosts.resx">
+      <DependentUpon>201910021307595_bookPosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

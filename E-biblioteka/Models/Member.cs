@@ -33,7 +33,6 @@ namespace E_biblioteka.Models
         public string SubscriptionEndDate { get; set; }
 
         public virtual ICollection<Post> Posts{ get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
 
     }
 }

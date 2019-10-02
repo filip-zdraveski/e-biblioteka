@@ -117,7 +117,16 @@ namespace E_biblioteka.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
                 }
-                db.Entry(post).State = EntityState.Modified;
+                Post ChangePost = db.Posts.Find(post.Id);
+                Book SelectedBook = db.Books.Find(post.BookId);
+                ApplicationUser User = db.Users.Find(post.UserId);
+                ChangePost.Title = post.Title;
+                ChangePost.Content = post.Content;
+                //ChangePost.SelectedBook = post.SelectedBook = SelectedBook;
+                //ChangePost.User = User;
+                //ChangePost.UserId = post.UserId;
+                //ChangePost.BookId = post.BookId;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -169,7 +178,7 @@ namespace E_biblioteka.Controllers
 
         private Boolean  IsAuthorized(int id)
         {
-            string PostId = id.ToString();
+            int PostId = id;
             string UserId = User.Identity.GetUserId();
             Post post = db.Posts.Find(PostId);
             ApplicationUser user = db.Users.Find(UserId);
@@ -186,7 +195,15 @@ namespace E_biblioteka.Controllers
         private string GetUserRole(string UserId)
         {
             ApplicationUser user = db.Users.Find(UserId);
-            return user.Roles.ToList().FirstOrDefault(m => m.UserId == UserId).RoleId;//1,3
+            try
+            {
+                string roleId = user.Roles.ToList().FirstOrDefault(m => m.UserId == UserId).RoleId;//1,3
+                return roleId;
+            }
+            catch(Exception)
+            {
+                return "0";
+            }
         }
     }
 }

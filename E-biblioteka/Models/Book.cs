@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_biblioteka.Models.Forum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,5 +30,11 @@ namespace E_biblioteka.Models
         [Range(0, int.MaxValue, ErrorMessage = "In Stock value must be non-negative number!")]
         [Display(Name = "In Stock")]
         public int InStock { get; set; }
+        public virtual List<Post> Posts { get; set; }
+
+        public Book()
+        {
+            Posts = new List<Post>();
+        }
     }
 }

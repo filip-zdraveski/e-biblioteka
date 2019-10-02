@@ -13,24 +13,24 @@
                 <img id="modalImage" style="width: 200px; height: 280px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />
                 <div class="text-center" style="margin-top: 20px; margin-left: 30px;">
                     @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-{
-    if (Model.InStock > 0)
-    {
+                    {
+                        if (Model.InStock > 0)
+                        {
                             <a href="@Url.Action("Order", "Books", new { id = Model.BookId })" class="btn btn-warning" style="margin-right: 5px;">
                                 <span><i class="fa fa-shopping-cart"></i> Order</span>
                             </a>
-    }
-    else
-    {
+                        }
+                        else
+                        {
                             <button type="button" class="btn btn-warning disabled">
                                 <span><i class="fa fa-shopping-cart"></i> Order</span>
                             </button>
-    }
-}
+                        }
+                    }
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-{
+                    {
                         <a href="@Url.Action("Edit", "Books", new { id = Model.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
-}
+                    }
                     <a href="@Url.Action("Index", "Books", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-default">Back to list</a>
                 </div>
             </div>
@@ -40,14 +40,14 @@
                 <p>
                     Rating:
                     @for (var i = 1; i <= Math.Floor(Model.Rating); i++)
-{
+                    {
                         <span class="fa fa-star checked"></span>
-}
+                    }
 
                     @for (var i = 1; i <= 5 - Math.Floor(Model.Rating); i++)
-{
+                    {
                         <span class="fa fa-star"></span>
-}
+                    }
                 </p>
                 <p>
                     @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
@@ -63,7 +63,18 @@
         </div>
     </div>
 </div>
-
+<div class="container">
+    <h2>Book reviews</h2>
+    <ul>
+        @foreach (var post in Model.Posts)
+        {
+            <li>
+                @post.Title
+            @post.Content
+        </li>
+    }
+    </ul>
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">

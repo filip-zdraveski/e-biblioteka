@@ -29,11 +29,5 @@ namespace E_biblioteka.Models.Forum
 
         public virtual Book SelectedBook { get; set; }
 
-        public virtual ICollection<Comment> Comments{ get; set; }
-
-        public Post()
-        {
-            Comments = new List<Comment>();
-        }
     }
 }

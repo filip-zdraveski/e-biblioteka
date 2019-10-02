@@ -39,7 +39,6 @@ namespace E_biblioteka.Models
 
         public bool? IsMember { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
         public ICollection<Post> Posts { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -58,7 +57,6 @@ namespace E_biblioteka.Models
         public DbSet<Member> Members { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
