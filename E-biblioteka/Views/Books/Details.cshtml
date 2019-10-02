@@ -7,7 +7,7 @@
 <div class="container">
     <div id="contentHead">
         <h1 style="margin-left: 20px; margin-top: 30px;">@Model.Name</h1>
-        <p style="margin:20px; margin-left: 30px;">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId }, new { })</p>
+        <p style="margin:20px; margin-left: 30px;">By @Html.ActionLink(Model.Author.Name, "Details", "Authors", new { id = Model.Author.AuthorId, page = 1 }, new { })</p>
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-lg-3">
                 <img id="modalImage" style="width: 200px; height: 280px; margin-left: 30px;" src="@Model.ImageUrl" alt="@Model.Name" />

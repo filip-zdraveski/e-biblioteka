@@ -23,9 +23,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="margin-left: 15px;">
-                    <li style="margin-top: 7px;"><i class="fa fa-book fa-2x" style="color: red; opacity: 0.5;"></i>@Html.ActionLink("Books", "Index", "Books", null, new { @style = "display: inline;" } )</li>
+                    <li style="margin-top: 7px;"><i class="fa fa-book fa-2x" style="color: red; opacity: 0.5;"></i>@Html.ActionLink("Books", "Index", "Books", null, new { @style = "display: inline;" })</li>
                     <li style="margin-top: 7px;"><i class="fa fa-user fa-2x" style="color: white; opacity: 0.5;"></i>@Html.ActionLink("Authors", "Index", "Authors", null, new { @style = "display: inline;" })</li>
                     <li style="margin-top: 7px;"><i class="fa fa-comments fa-2x" style="color: dodgerblue; opacity: 0.5;"></i>@Html.ActionLink("Forum", "Index", "Posts", null, new { @style = "display: inline;" })</li>
+                    <li style="margin-top: 2px;">@Html.ActionLink("About", "About", "Home")</li>
+                    <li style="margin-top: 2px;">@Html.ActionLink("Contact us", "Contact", "Home")</li>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
                         <li style="margin-top: 2px;">@Html.ActionLink("Members", "Index", "Members")</li>

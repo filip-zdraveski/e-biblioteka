@@ -32,8 +32,6 @@
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
             <div class="form-inline" style="margin-left: 80px;">
-                @using (Html.BeginForm("Index", "Authors", new { page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search }, FormMethod.Get))
-                {
                     <div class="form-group">
                         <label for="search"><i class="fa fa-search"></i></label>
                         @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 200px; margin-right: 15px", @placeholder = "Enter author name" })
@@ -44,7 +42,6 @@
                             <option value="name-descending">Name (Z-A)</option>
                         </select>
                     </div>
-                }
             </div>
         </div>
     </div>
@@ -99,10 +96,22 @@
                 }
             });
 
-            $("select").on("change",
+            var orderBy = $("#order-list").val();
+            var search = $("#search").val();
+
+            $("#search").on("change", function () {
+                search = $("#search").val();
+                if (orderBy)
+                    document.location = "?orderBy" + orderBy + "&search=" + search;
+                else
+                    document.location = "?search=" + search;
+            });
+
+            $("#order-list").on("change",
                 function () {
-                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").attr("value");
+                    document.location = "?orderBy=" + this.value + "&search=" + $("#search").val();
                 });
+
         });
     </script>
 }

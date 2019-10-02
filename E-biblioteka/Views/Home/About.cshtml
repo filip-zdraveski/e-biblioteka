@@ -1,7 +1,45 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<style>
+    p {
+        font-weight: bold;
+    }
 
-<p>Use this area to provide additional information.</p>
+    #page-container {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    #content-wrap {
+        padding-bottom: 2.5rem; /* Footer height */
+    }
+
+    #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem; /* Footer height */
+    }
+</style>
+<div class="container text-center" style="margin-top : 10%; font-size: 20px;">
+    <h3>This page was brought to you by: </h3>
+    <br />
+    <div class="row " style="width: 40%; margin-left: 32%">
+        <div class="col-lg-6 ">
+            <p>Antonio Avramovikj</p>
+            <p>Filip Zdraveski</p>
+            <p>Aida Mashovich</p>
+            <p>Filip Trajkovski</p>
+        </div>
+        <div class="col-lg-6">
+            <p>171106</p>
+            <p>171071</p>
+            <p>171044</p>
+            <p>171005</p>
+        </div>
+    </div>
+    <footer class="text-center" style="height: 2.5rem; margin-top: 24%;">
+        &copy; 2019 E-library
+    </footer>
+</div>
