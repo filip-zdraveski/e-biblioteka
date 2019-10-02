@@ -344,6 +344,7 @@ namespace E_biblioteka.Controllers
             return RedirectToAction("Index", "Books");
         }
 
+        [Authorize(Roles = "Member, Moderator")]
         public ActionResult AddPostToBook(int id)
         {
             return RedirectToAction("Create", "Posts", new { BookId = id});
