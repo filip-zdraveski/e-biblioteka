@@ -4,55 +4,35 @@
     ViewBag.Title = "Order";
 }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body {
-        background-color: lightgray;
-    }
-
-    #contentHead {
-        margin-left: auto;
-        margin-right: auto;
-        background-color: white;
-        border: 1px solid black;
-        margin-top: 20px;
-        width: 600px;
-        height: 100%;
-    }
-</style>
-
-@using (Html.BeginForm())
-{
-    <div class="container center">
-        <div id="contentHead" class="center text-center">
-            <h1 style="margin-top: 30px;">@Model.Name</h1>
-            <h4 style="margin:20px;">By @Model.Author.Name</h4>
-            <div class="row" style="margin-bottom: 20px;">
-                <div class="text-center">
-                    <img id="modalImage" style="width: 200px; height: 280px;" src="@Model.ImageUrl" alt="@Model.Name" />
-                </div>
-                <div class="text-center">
-                    <h4>Price: $0.99</h4>
-                    <p>
-                        Are you sure you want to order this book?
-                    </p>
-                    @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+<div class="container center">
+    <div id="contentHead" class="center text-center">
+        <h1 style="margin-top: 30px;">@Model.Name</h1>
+        <h4 style="margin:20px;">By @Model.Author.Name</h4>
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="text-center">
+                <img id="modalImage" style="width: 200px; height: 280px;" src="@Model.ImageUrl" alt="@Model.Name" />
+            </div>
+            <div class="text-center">
+                <h4>Price: $0.99</h4>
+                <p>
+                    Are you sure you want to order this book?
+                </p>
+                @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
+                {
+                    if (Model.InStock > 0)
                     {
-                        if (Model.InStock > 0)
-                        {
-                            <button type="submit" class="btn btn-success">Confirm</button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-default disabled">Out of Stock</button>
-                        }
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#orderModal">Confirm</button>
                     }
-                    <button type="button" class="btn btn-danger" onclick="window.location='/Books/Index'">Back to list</button>
-                </div>
+                    else
+                    {
+                        <button type="button" class="btn btn-default disabled">Out of Stock</button>
+                    }
+                }
+                <button type="button" class="btn btn-danger" onclick="window.location='/Books/Index'">Back to list</button>
             </div>
         </div>
     </div>
-}
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -67,10 +47,51 @@
     <div id="caption"></div>
 </div>
 
-@section styles {
-    <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
+@using (Html.BeginForm())
+{
+    <!-- Modal -->
+    <div id="orderModal" class="modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: green;">
+                    <h4 class="modal-title" style="color: white;">Order Successful!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Your order has been successfully placed. Thank you!</p>
+                </div>
+                <div class="modal-footer">   
+                        <button type="submit" class="btn btn-default">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-@section scripts {
-    <script type="text/javascript" src="@Href("~/Scripts/ModalImage.js")"></script>
-}
+    @section styles {
+        <link rel="stylesheet" type="text/css" href="@Href("~/Content/ModalImage.css")" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <style>
+            body {
+                background-color: lightgray;
+            }
+
+            #contentHead {
+                margin-left: auto;
+                margin-right: auto;
+                background-color: white;
+                border: 1px solid black;
+                margin-top: 20px;
+                width: 600px;
+                height: 100%;
+            }
+        </style>
+    }
+
+    @section scripts {
+        <script type="text/javascript" src="@Href("~/Scripts/ModalImage.js")"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    }

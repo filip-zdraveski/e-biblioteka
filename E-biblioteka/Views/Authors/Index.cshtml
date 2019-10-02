@@ -5,22 +5,19 @@
 @{
     ViewBag.Title = "Index";
     var filters = "?page=" + ViewBag.Page;
-    if (ViewBag.OrderBy != null) {
+    if (ViewBag.OrderBy != null)
+    {
         filters += "&orderBy=" + ViewBag.OrderBy;
     }
-    if (ViewBag.Search != null) {
+    if (ViewBag.Search != null)
+    {
         filters += "&search=" + ViewBag.Search;
     }
-    if (ViewBag.BookGenre != null) {
+    if (ViewBag.BookGenre != null)
+    {
         filters += "&bookGenre=" + ViewBag.BookGenre;
     }
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .card {
-        margin-bottom: 25px;
-    }
-</style>
 
 <div class="container-fluid">
     <div class="row text-center">
@@ -79,6 +76,17 @@
         </div>
     </div>
 </div>
+
+@section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .card {
+            margin-bottom: 25px;
+        }
+    </style>
+}
+
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {

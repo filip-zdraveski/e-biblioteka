@@ -5,26 +5,19 @@
 @{
     ViewBag.Title = "Index";
     var filters = "?page=" + ViewBag.Page;
-    if (ViewBag.OrderBy != null) {
+    if (ViewBag.OrderBy != null)
+    {
         filters += "&orderBy=" + ViewBag.OrderBy;
     }
-    if (ViewBag.Search != null) {
+    if (ViewBag.Search != null)
+    {
         filters += "&search=" + ViewBag.Search;
     }
-    if (ViewBag.BookGenre != null) {
+    if (ViewBag.BookGenre != null)
+    {
         filters += "&bookGenre=" + ViewBag.BookGenre;
     }
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .checked {
-        color: orange;
-    }
-
-    .card {
-        margin-bottom: 25px;
-    }
-</style>
 
 <div class="container-fluid">
     <div class="row text-center">
@@ -45,30 +38,30 @@
         </span>
         <div class="col-xs-12 col-sm-4 col-lg-6 pull-right">
             <div class="form-inline" style="margin-left: 80px;">
-                    <div class="form-group" style="width: 100%;">
-                        <label for="search"><i class="fa fa-search"></i></label>
-                        @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
-                    </div>
+                <div class="form-group" style="width: 100%;">
+                    <label for="search"><i class="fa fa-search"></i></label>
+                    @Html.TextBox("search", "", new { @class = "form-control", @style = "width: 400px; max-width: 400px;", @placeholder = "Enter book / author name" })
+                </div>
 
-                    <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
-                        <label for="order-list"><i class="fa fa-sort"></i></label>
-                        <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
-                            <option value="">--Order By--</option>
-                            <option value="title-ascending">Title (A-Z)</option>
-                            <option value="title-descending">Title (Z-A)</option>
-                            <option value="rating-descending">Top Rated</option>
-                            <option value="year-descending">Publish Date (newest)</option>
-                            <option value="year-ascending">Publish Date (oldest)</option>
-                        </select>
-                        <label for="genres-list"><i class="fa fa-sort"></i></label>
-                        <select id="genres-list" class="form-control" style="width: 185px;">
-                            <option value="">--All Genres--</option>
-                            @foreach (var genre in Model.Genres)
-                            {
-                                <option value="@genre">@genre</option>
-                            }
-                        </select>
-                    </div>
+                <div class="form-group" style="margin-top: 15px; margin-left: 5px;">
+                    <label for="order-list"><i class="fa fa-sort"></i></label>
+                    <select id="order-list" class="form-control" style="width: 185px; margin-right: 15px;">
+                        <option value="">--Order By--</option>
+                        <option value="title-ascending">Title (A-Z)</option>
+                        <option value="title-descending">Title (Z-A)</option>
+                        <option value="rating-descending">Top Rated</option>
+                        <option value="year-descending">Publish Date (newest)</option>
+                        <option value="year-ascending">Publish Date (oldest)</option>
+                    </select>
+                    <label for="genres-list"><i class="fa fa-sort"></i></label>
+                    <select id="genres-list" class="form-control" style="width: 185px;">
+                        <option value="">--All Genres--</option>
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre">@genre</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -94,21 +87,21 @@
                         }
                     </p>
                     <p>
-                       @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
-                    {
-                        if (item.InStock > 0)
+                        @if (User.IsInRole("Member") || User.IsInRole("Moderator"))
                         {
-                            <a href="@Url.Action("Order", "Books", new { id = item.BookId })" class="btn btn-default" style="margin-right: 5px;">
-                                <span><i class="fa fa-shopping-cart"></i> Order</span>
-                            </a>
+                            if (item.InStock > 0)
+                            {
+                                <a href="@Url.Action("Order", "Books", new { id = item.BookId })" class="btn btn-default" style="margin-right: 5px;">
+                                    <span><i class="fa fa-shopping-cart"></i> Order</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-default disabled">
+                                    <span><i class="fa fa-shopping-cart"></i> Order</span>
+                                </button>
+                            }
                         }
-                        else
-                        {
-                            <button type="button" class="btn btn-default disabled">
-                                <span><i class="fa fa-shopping-cart"></i> Order</span>
-                            </button>
-                        }
-                    }
                         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                         {
                             <a href="@Url.Action("Edit", "Books", new { id = item.BookId, page = ViewBag.Page, orderBy = ViewBag.OrderBy, search = ViewBag.Search, bookGenre = ViewBag.BookGenre })" class="btn btn-info" style="margin-right: 5px">Edit</a>
@@ -129,10 +122,24 @@
     </div>
 </div>
 
+@section styles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .checked {
+            color: orange;
+        }
+
+        .card {
+            margin-bottom: 25px;
+        }
+    </style>
+}
+
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            
+
             $("select option").each(function () {
                 var value = $(this).attr("value");
                 if (document.location.search.includes(value)) {

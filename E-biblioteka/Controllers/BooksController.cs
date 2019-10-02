@@ -272,7 +272,7 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { page, orderBy, search, bookGenre });
         }
-        public ActionResult UpVote(long id)
+        public ActionResult UpVote(long? id)
         {
             if (id == null)
             {
@@ -289,7 +289,7 @@ namespace E_biblioteka.Controllers
             db.SaveChanges();
             return View("Details", book);
         }
-        public ActionResult DownVote(long id)
+        public ActionResult DownVote(long? id)
         {
             if (id == null)
             {
@@ -329,7 +329,7 @@ namespace E_biblioteka.Controllers
             book.InStock -= 1;
             db.Entry(book).Property(b => b.InStock).IsModified = true;
             db.SaveChanges();
-            return View(book);
+            return RedirectToAction("Index", "Books");
         }
 
         protected override void Dispose(bool disposing)
