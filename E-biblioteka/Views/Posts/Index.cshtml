@@ -32,12 +32,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SelectedBook.Name)
             </td>
-            <td>
+            <td style="width: 500px; word-break: break-all;">
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-
                 @if (User.IsInRole("Administrator") || User.IsInRole("Moderator") || ViewBag.UserId == item.UserId)
                 {
                     <span> | </span>
@@ -48,5 +46,4 @@
             </td>
         </tr>
     }
-
 </table>

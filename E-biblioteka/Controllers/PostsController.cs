@@ -29,22 +29,6 @@ namespace E_biblioteka.Controllers
             return View(db.Posts.ToList());
         }
 
-        // GET: Posts/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
         // GET: Posts/Create
         public ActionResult Create(int? BookId)
         {
@@ -61,6 +45,11 @@ namespace E_biblioteka.Controllers
             NewPost model = new NewPost();
             {
                 model.Books = Books;
+                var user = db.Users.Find(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    model.Title = user.UserName;
+                }
             }
             return View(model);
         }
@@ -98,6 +87,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Edit(int? id)
         {
             if (id != null && !IsAuthorized(id.Value))
@@ -121,6 +111,7 @@ namespace E_biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Edit([Bind(Include = "Id,UserId,BookId,Title,Content")] Post post)
         {
             if (ModelState.IsValid)
@@ -146,6 +137,7 @@ namespace E_biblioteka.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Delete(int? id)
         {
             if (id != null && !IsAuthorized(id.Value))
@@ -167,6 +159,7 @@ namespace E_biblioteka.Controllers
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult DeleteConfirmed(int id)
         {
             if (!IsAuthorized(id))

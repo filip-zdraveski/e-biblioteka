@@ -19,6 +19,7 @@ namespace E_biblioteka.Models.Forum
 
         [Required]
         [StringLength(64, ErrorMessage = "Title length must not exceed 64 characters")]
+        [Display(Name = "User")]
         public string Title { get; set; }
 
         [Required]

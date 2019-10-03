@@ -77,7 +77,7 @@
     <table class="table">
         <tr>
             <th>
-                Title
+                User
             </th>
 
             <th>
@@ -92,19 +92,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-
-                <td>
+                <td style="width: 500px; word-break: break-all;">
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td>
-                    <a href="@Url.Action("Details", "Posts", new { id = item.Id })">Details</a>
-
                     @if (User.IsInRole("Administrator") || User.IsInRole("Moderator") || ViewBag.UserId == item.UserId)
                     {
-                        <span> | </span>
-                        <a href="@Url.Action("Edit", "Posts", new { id = item.Id })">Edit</a>
-                        <span> | </span>
-                        <a href="@Url.Action("Delete", "Posts", new { id = item.Id })">Delete</a>
+                        <a href="@Url.Action("Edit", "Posts", new { id = item.Id })" class="btn btn-default">Edit</a>
+                        <a href="@Url.Action("Delete", "Posts", new { id = item.Id })" class="btn btn-danger">Delete</a>
                     }
                 </td>
             </tr>

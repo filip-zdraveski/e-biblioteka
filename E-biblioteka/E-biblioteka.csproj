@@ -576,7 +576,6 @@
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Books\Order.cshtml" />
-    <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Requests\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
